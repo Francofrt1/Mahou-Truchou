@@ -1,0 +1,13 @@
+{
+    "bundles":[
+       {
+          "name":"player-bundle",
+          "assets":[
+             {
+                "alias":"character",
+                "src":"../assets/sprites/player-character/player-character.json"
+             }
+          ]
+       }
+    ]
+ }

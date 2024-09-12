@@ -1,9 +1,11 @@
 import {Character} from "./scripts/character.js"
+import { Background } from "./scripts/background.js";
 
 export class Game {
     constructor() {
         this.app = new PIXI.Application();
         this.character;
+        this.currentBackground;
         this.inputKeys = {};
 
         this.app.init({ 
@@ -28,12 +30,15 @@ export class Game {
     async loadGameElements() {
         await PIXI.Assets.init({manifest: "./assets/manifest.json"});
         const playerCharacterAssets = await PIXI.Assets.loadBundle('player-bundle');
+        const dayBackgroundAssets = await PIXI.Assets.loadBundle('day-background-bundle');
 
+        this.currentBackground = new Background(this, dayBackgroundAssets);
         this.character = new Character(this, playerCharacterAssets.character);
     }
 
     async gameLoop() {
         this.character.update();
+        this.currentBackground.update();
     }
 
     async addCharacterInputsListeners() {

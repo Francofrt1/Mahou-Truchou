@@ -26,5 +26,5 @@ export class Character extends GameObject {
         }
     
         super.update();
-      }
+    }
 }

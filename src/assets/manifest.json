@@ -8,6 +8,27 @@
                 "src":"../assets/sprites/player-character/player-character.json"
              }
           ]
-       }
+       },
+       {
+         "name":"day-background-bundle",
+         "assets":[
+            {
+               "alias":"background-1",
+               "src":"../assets/background/Clouds/Clouds1/1.png"
+            }
+            , {
+               "alias":"background-2",
+               "src":"../assets/background/Clouds/Clouds1/2.png"
+            }
+            , {
+               "alias":"background-3",
+               "src":"../assets/background/Clouds/Clouds1/3.png"
+            }
+            , {
+               "alias":"background-4",
+               "src":"../assets/background/Clouds/Clouds1/4.png"
+            }
+         ]
+      }
     ]
  }

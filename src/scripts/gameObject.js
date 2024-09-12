@@ -61,7 +61,7 @@ export class GameObject {
     
         this.velocity.x *= this.maxVelocity;
         this.velocity.y *= this.maxVelocity;
-      }
+    }
 
     async update() {
         this.normalizeVelocity();

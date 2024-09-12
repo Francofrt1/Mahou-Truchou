@@ -4,6 +4,8 @@ export class Game {
     constructor() {
         this.app = new PIXI.Application();
         this.character;
+        this.inputKeys = {};
+
         this.app.init({ 
             width: window.innerWidth * 0.99
             , height: window.innerHeight * 0.98
@@ -16,15 +18,14 @@ export class Game {
     async setUp() {
         document.body.appendChild(this.app.canvas);
         window.__PIXI_APP__ = this.app;
+        await this.loadGameElements();
+        this.addCharacterInputsListeners();
         this.app.ticker.add(() => {
             this.gameLoop()
         });
-        await this.loadGameElements();
-        this.addCharacterInputsListeners();
     }
 
     async loadGameElements() {
-        
         await PIXI.Assets.init({manifest: "./assets/manifest.json"});
         const playerCharacterAssets = await PIXI.Assets.loadBundle('player-bundle');
 
@@ -32,32 +33,15 @@ export class Game {
     }
 
     async gameLoop() {
-
+        this.character.update();
     }
 
-    addCharacterInputsListeners() {
+    async addCharacterInputsListeners() {
         window.onkeydown = (e) => {
-            if(this.character) {
-                switch (e.key) {
-                    case "w":
-                        this.character.up(e.repeat);
-                        break;
-                    case "a":
-                        this.character.left(e.repeat);
-                        break;
-                    case "d":
-                        this.character.right(e.repeat);
-                        break;
-                    case "s":
-                        this.character.down(e.repeat);
-                        break;
-                    case "e":
-                        if(e.repeat) return;
-                        this.character.attack();
-                    default:
-                        break;
-                }
-            }
+            this.inputKeys[e.key.toLowerCase()] = true;
+        }
+        window.onkeyup = (e) => {
+            delete this.inputKeys[e.key.toLowerCase()];
         }
     }
 }

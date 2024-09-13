@@ -131,27 +131,27 @@
          "assets": [
             {
                "alias": "background-1",
-               "src": "../assets/background/Clouds/Clouds6/1.png"
+               "src": "../assets/background/Clouds/Clouds8/1.png"
             },
             {
                "alias": "background-2",
-               "src": "../assets/background/Clouds/Clouds6/2.png"
+               "src": "../assets/background/Clouds/Clouds8/2.png"
             },
             {
                "alias": "background-3",
-               "src": "../assets/background/Clouds/Clouds6/3.png"
+               "src": "../assets/background/Clouds/Clouds8/3.png"
             },
             {
                "alias": "background-4",
-               "src": "../assets/background/Clouds/Clouds6/4.png"
+               "src": "../assets/background/Clouds/Clouds8/4.png"
             },
             {
                "alias": "background-5",
-               "src": "../assets/background/Clouds/Clouds6/5.png"
+               "src": "../assets/background/Clouds/Clouds8/5.png"
             },
             {
                "alias": "background-6",
-               "src": "../assets/background/Clouds/Clouds6/6.png"
+               "src": "../assets/background/Clouds/Clouds8/6.png"
             }
          ]
       },

@@ -1,9 +1,11 @@
-import {Character} from "./scripts/character.js"
+import { Character } from "./scripts/character.js"
 import { Background } from "./scripts/background.js";
+import { UserInterface } from "./scripts/userInterface.js";
 
 export class Game {
     constructor() {
         this.app = new PIXI.Application();
+        this.ui;
         this.character;
         this.bgContainer = new PIXI.Container();
         this.backgroundsCicle = {}
@@ -22,8 +24,10 @@ export class Game {
     async setUp() {
         document.body.appendChild(this.app.canvas);
         window.__PIXI_APP__ = this.app;
+
         await this.loadGameElements();
         this.addCharacterInputsListeners();
+        this.loadUIElements();
         this.app.ticker.add(() => {
             this.gameLoop()
         });
@@ -47,6 +51,10 @@ export class Game {
         window.onkeyup = (e) => {
             delete this.inputKeys[e.key.toLowerCase()];
         }
+    }
+
+    async loadUIElements() {
+        this.ui = new UserInterface(this);
     }
 
     async loadBackgroundsCicle() {
@@ -87,7 +95,7 @@ export class Game {
     }
 
     async setCurrentBackground(newBg) {
-        this.currentBackground = newBg;
+        this.currentBackground = newBg ?? this.backgroundsCicle["day"];
         this.bgContainer.removeChildren();
         this.bgContainer.addChild(this.currentBackground.container);
     }

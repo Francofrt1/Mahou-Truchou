@@ -28,8 +28,9 @@ export class Background {
 
     async update() {
         this.bgX = (this.bgX + this.bgSpeed)
+        let totalParts = this.bgParts.length;
         this.bgParts.forEach((bg, i) => {
-            bg.tilePosition.x = this.bgX / i;
+            bg.tilePosition.x = this.bgX / (totalParts - i);
         })
     }
 }

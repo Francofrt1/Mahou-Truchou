@@ -3,6 +3,9 @@ import { GameObject } from "./gameObject.js";
 export class Character extends GameObject {
     constructor(game, spritesheetAsset, maxVelocity = 5, x = 500, y = 500) {
         super(game, maxVelocity, x, y);
+
+        this.life = 100;
+        this.baseAttack = 50;
         
         this.loadAnimationsFromSpritesheet(spritesheetAsset, () => {
             this.animation.animationSpeed = 0.3;

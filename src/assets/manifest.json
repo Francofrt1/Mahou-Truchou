@@ -10,6 +10,19 @@
          ]
       },
       {
+         "name": "bitmap-fonts-bundle",
+         "assets": [
+            {
+               "alias": "bold-twilight-font",
+               "src": "../assets/fonts/6.BoldBubblegum/BMFontXML/BoldBubblegum.xml"
+            },
+            {
+               "alias": "bold-bubblegum-font",
+               "src": "../assets/fonts/8.BoldTwilight/BMFontXML/BoldTwilight.xml"
+            }
+         ]
+      },
+      {
          "name": "day-background-bundle",
          "assets": [
             {

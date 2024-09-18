@@ -11,6 +11,7 @@ export class Game {
         this.backgroundsCicle = {}
         this.currentBackground;
         this.inputKeys = {};
+        this.ellapsedFrames = 0;
 
         this.app.init({ 
             width: window.innerWidth * 0.99
@@ -28,8 +29,8 @@ export class Game {
         await this.loadGameElements();
         this.addCharacterInputsListeners();
         this.loadUIElements();
-        this.app.ticker.add(() => {
-            this.gameLoop()
+        this.app.ticker.add((deltaTime) => {
+            this.gameLoop(deltaTime)
         });
     }
 
@@ -39,9 +40,14 @@ export class Game {
         await this.loadBackgroundsCicle();
     }
 
-    async gameLoop() {
+    async gameLoop(deltaTime) {
+        this.ellapsedFrames += 1;
         this.character.update();
         this.currentBackground.update();
+
+        if(this.ellapsedFrames % 4000 == 0) {
+            this.cicleThroughBgs();
+        }
     }
 
     async addCharacterInputsListeners() {
@@ -71,22 +77,14 @@ export class Game {
         this.backgroundsCicle["night-2"] = new Background(this, await PIXI.Assets.loadBundle('night-background-2-bundle'));
         this.backgroundsCicle["morning"] = new Background(this, await PIXI.Assets.loadBundle('morning-background-bundle'));
         this.backgroundsCicle["morning-2"] = new Background(this, await PIXI.Assets.loadBundle('morning-background-2-bundle'));
-
-        this.cicleThroughBgs();
     }
 
     async cicleThroughBgs() {
-        setInterval(
-            (e) => {
-                const keys = Object.keys(e.backgroundsCicle).map((k) => e.backgroundsCicle[k]);
-                let nextIndx = keys.indexOf(e.currentBackground) + 1;
-                nextIndx = nextIndx >= keys.length ? 0 : nextIndx;
-                const nextBg = keys.at(nextIndx);
-                e.setCurrentBackground(nextBg);
-            }
-        , 40000
-        , this
-        );
+        const keys = Object.keys(this.backgroundsCicle).map((k) => this.backgroundsCicle[k]);
+        let nextIndx = keys.indexOf(this.currentBackground) + 1;
+        nextIndx = nextIndx >= keys.length ? 0 : nextIndx;
+        const nextBg = keys.at(nextIndx);
+        this.setCurrentBackground(nextBg);
     }
 
     async loadPlayerCharacter() {

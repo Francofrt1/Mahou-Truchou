@@ -14,15 +14,15 @@ export class Game {
         this.currentBackground;
         this.inputKeys = {};
         this.ellapsedFrames = 0;
-        this.boardWidth = window.innerWidth * 0.99
-        this.boardHeight = window.innerWidth * 0.99
+        this.boardWidth = window.innerWidth;
+        this.boardHeight = window.innerHeight * 0.98
         this.enemySpawner;
-        this.canvasWidth = window.innerWidth * 2;
-        this.canvasHeight = window.innerHeight * 2;
+        this.canvasWidth = window.innerWidth * 1.1;
+        this.canvasHeight = window.innerHeight * 1.1;
         this.grid = new Grid(50, this); // Cellsize 50
         this.app.init({ 
-            width: window.innerWidth * 0.99
-            , height: window.innerHeight * 0.98
+            width: this.boardWidth
+            , height: this.boardHeight
         })
         .then(() => {
             this.setUp();

@@ -244,8 +244,8 @@ export class Enemy extends GameObject {
     
         if (this.container.x < 0) force.x = -this.container.x;
         if (this.container.y < 0) force.y = -this.container.y;
-        if (this.container.x > this.game.canvaswidth)
-            force.x = -(this.container.x - this.game.canvaswidth);
+        if (this.container.x > this.game.canvasWidth)
+            force.x = -(this.container.x - this.game.canvasWidth);
         if (this.container.y > this.game.canvasHeight)
             force.y = -(this.container.y - this.game.canvasHeight);
     

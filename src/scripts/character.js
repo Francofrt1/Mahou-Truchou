@@ -18,6 +18,13 @@ export class Character extends GameObject {
     async handleMovementInputs() {
         this.velocity.x = this.game.inputKeys.a ? -1 : this.game.inputKeys.d ? 1 : 0;
         this.velocity.y = this.game.inputKeys.w ? -1 : this.game.inputKeys.s ? 1 : 0;
+
+        if (this.container.x < 0) this.velocity.x = -this.container.x;
+        if (this.container.y < 0) this.velocity.y = -this.container.y;
+        if (this.container.x > this.game.boardWidth)
+            this.velocity.x = -(this.container.x - this.game.boardWidth);
+        if (this.container.y > this.game.boardHeight)
+            this.velocity.y = -(this.container.y - this.game.boardHeight);
     }
 
     async update() {    

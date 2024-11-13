@@ -2,7 +2,7 @@ import { GameObject } from "./gameObject.js";
 import { fastDistanceCalc, squaredDistance, normalizeVector } from "./utility.js";
 
 export class Enemy extends GameObject {
-    constructor(game, spritesheetAsset, maxVelocity = 5, x = 800, y = 500) {
+    constructor(game, spritesheetAsset, maxVelocity = 4, x = 800, y = 500) {
         super(game, maxVelocity, x, y);
         this.neighbors = [];
 
@@ -221,8 +221,8 @@ export class Enemy extends GameObject {
         let total = 0;
     
         neighbors.forEach((enemy) => {
-            vecAverage.x += enemy.velocidad.x;
-            vecAverage.y += enemy.velocidad.y;
+            vecAverage.x += enemy.velocity.x;
+            vecAverage.y += enemy.velocity.y;
             total++;
         });
     

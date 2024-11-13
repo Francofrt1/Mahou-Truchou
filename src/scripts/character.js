@@ -1,7 +1,7 @@
 import { GameObject } from "./gameObject.js";
 
 export class Character extends GameObject {
-    constructor(game, spritesheetAsset, maxVelocity = 5, x = 500, y = 500) {
+    constructor(game, spritesheetAsset, maxVelocity = 8, x = 500, y = 500) {
         super(game, maxVelocity, x, y);
 
         this.exp = 0;

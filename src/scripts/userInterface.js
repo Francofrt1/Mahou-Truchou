@@ -69,6 +69,7 @@ export class UserInterface {
 
     async update() {
         const mouse = this.game.mouse;
+        if(!mouse) return;
         const dx = mouse.x - this.pointerContainer.x;
         const dy = mouse.y - this.pointerContainer.y;
         this.pointerContainer.rotation =  Math.atan2(dy, dx);

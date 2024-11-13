@@ -59,6 +59,7 @@ export class Character extends GameObject {
     }
 
     async updateFacingDirection() {
+        if(!this.game.mouse) return;
         this.container.scale.x = this.game.mouse.x - this.game.app.stage.x - this.container.x >= 0 ? 1 : -1
     }
 }

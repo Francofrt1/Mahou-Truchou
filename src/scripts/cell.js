@@ -7,21 +7,21 @@ export class Cell {
       this.presentObjects = {};
     }
 
-    add(obj) {
+    async add(obj) {
       this.presentObjects[obj.id] = obj;
       obj.currentCell = this;
     }
 
-    remove(obj) {
+    async remove(obj) {
       obj.currentCell = null;
       delete this.presentObjects[obj.id];
     }
 
-    objectsCount() {
+    async objectsCount() {
       return Object.keys(this.presentObjects).length;
     }
 
-    updateIfCanPass() {
+    async updateIfCanPass() {
       if (this.objectsCount() > 2) {
         this.passable = false;
       } else {
@@ -29,11 +29,10 @@ export class Cell {
       }
     }
   
-    getNeighborsCells() {
+    async getNeighborsCells() {
       let neighbors = [];
   
       const margin = 1;
-      // Revisar celdas adyacentes
       for (let i = this.x - margin; i <= this.x + margin; i++) {
         for (let j = this.y - margin; j <= this.y + margin; j++) {
           const cell = this.game.grid.getCell(i, j);

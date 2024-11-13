@@ -14,11 +14,12 @@ export class Game {
         this.currentBackground;
         this.inputKeys = {};
         this.ellapsedFrames = 0;
-        this.grid = new Grid(50, this); // Cellsize 50
         this.boardWidth = window.innerWidth * 0.99
         this.boardHeight = window.innerWidth * 0.99
         this.enemySpawner;
-
+        this.canvasWidth = window.innerWidth * 2;
+        this.canvasHeight = window.innerHeight * 2;
+        this.grid = new Grid(50, this); // Cellsize 50
         this.app.init({ 
             width: window.innerWidth * 0.99
             , height: window.innerHeight * 0.98
@@ -52,6 +53,7 @@ export class Game {
         this.character.update();
         this.currentBackground.update();
         this.ui.update();
+        this.enemySpawner.update();
 
         if(this.ellapsedFrames % 4000 == 0) {
             this.cicleThroughBgs();

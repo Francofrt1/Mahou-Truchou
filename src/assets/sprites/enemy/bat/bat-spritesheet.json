@@ -1,0 +1,473 @@
+{
+	"frames": {
+		"bitetile000.png": {
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		},
+		"bitetile001.png": {
+			"frame": {
+				"x": 47,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		},
+		"bitetile002.png": {
+			"frame": {
+				"x": 93,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		},
+		"bitetile003.png": {
+			"frame": {
+				"x": 139,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		},
+		"bitetile004.png": {
+			"frame": {
+				"x": 185,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		},
+		"bitetile005.png": {
+			"frame": {
+				"x": 231,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		},
+		"bitetile006.png": {
+			"frame": {
+				"x": 277,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		},
+		"bitetile007.png": {
+			"frame": {
+				"x": 323,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		},
+		"deathtile000.png": {
+			"frame": {
+				"x": 369,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		},
+		"deathtile001.png": {
+			"frame": {
+				"x": 415,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		},
+		"deathtile002.png": {
+			"frame": {
+				"x": 461,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		},
+		"deathtile003.png": {
+			"frame": {
+				"x": 507,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		},
+		"deathtile004.png": {
+			"frame": {
+				"x": 553,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		},
+		"deathtile005.png": {
+			"frame": {
+				"x": 599,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		},
+		"deathtile006.png": {
+			"frame": {
+				"x": 645,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		},
+		"flytile000.png": {
+			"frame": {
+				"x": 691,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		},
+		"flytile001.png": {
+			"frame": {
+				"x": 737,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		},
+		"flytile002.png": {
+			"frame": {
+				"x": 783,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		},
+		"flytile003.png": {
+			"frame": {
+				"x": 829,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		},
+		"flytile004.png": {
+			"frame": {
+				"x": 875,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		},
+		"flytile005.png": {
+			"frame": {
+				"x": 921,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		},
+		"flytile006.png": {
+			"frame": {
+				"x": 967,
+				"y": 1,
+				"w": 44,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 92
+			}
+		}
+	},
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "bat-spritesheet.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 1012,
+			"h": 94
+		},
+		"scale": "1"
+	},
+	"animations": {
+		"idle": [
+			"flytile000.png","flytile001.png","flytile002.png","flytile003.png"
+			,"flytile004.png","flytile005.png","flytile006.png"
+		]
+		, "running": [
+			"flytile000.png","flytile001.png","flytile002.png","flytile003.png"
+			,"flytile004.png","flytile005.png","flytile006.png"
+		]
+		, "attack": [
+			"bitetile000.png","bitetile001.png","bitetile002.png","bitetile003.png"
+			,"bitetile004.png","bitetile005.png","bitetile006.png"
+		]
+		, "death": [
+			"deathtile000.png","deathtile001.png","deathtile002.png","deathtile003.png"
+			,"deathtile004.png","deathtile005.png","deathtile006.png"
+		]
+	}
+}

@@ -1,6 +1,8 @@
 import { Character } from "./scripts/character.js"
 import { Background } from "./scripts/background.js";
 import { UserInterface } from "./scripts/userInterface.js";
+import { Grid } from "./scripts/grid.js";
+import { EnemySpawner } from "./scripts/enemySpawner.js";
 
 export class Game {
     constructor() {
@@ -12,6 +14,10 @@ export class Game {
         this.currentBackground;
         this.inputKeys = {};
         this.ellapsedFrames = 0;
+        this.grid = new Grid(50, this); // Cellsize 50
+        this.boardWidth = window.innerWidth * 0.99
+        this.boardHeight = window.innerWidth * 0.99
+        this.enemySpawner;
 
         this.app.init({ 
             width: window.innerWidth * 0.99
@@ -38,16 +44,29 @@ export class Game {
         await PIXI.Assets.init({manifest: "./assets/manifest.json"});
         this.loadPlayerCharacter();
         await this.loadBackgroundsCicle();
+        await this.initEnemies();
     }
 
     async gameLoop(deltaTime) {
         this.ellapsedFrames += 1;
         this.character.update();
         this.currentBackground.update();
+        this.ui.update();
 
         if(this.ellapsedFrames % 4000 == 0) {
             this.cicleThroughBgs();
         }
+    }
+
+    async mouseDownEvent() {
+        this.character.attack();
+    }
+
+    async onMouseMove(event) {
+        this.mouse = { x: 0, y: 0 };
+        const rect = this.app.view.getBoundingClientRect();
+        this.mouse.x = event.clientX - rect.left;
+        this.mouse.y = event.clientY - rect.top;
     }
 
     async addCharacterInputsListeners() {
@@ -57,6 +76,16 @@ export class Game {
         window.onkeyup = (e) => {
             delete this.inputKeys[e.key.toLowerCase()];
         }
+
+        this.app.view.addEventListener("mousedown", () => {
+            (this.mouse || {}).click = true;
+            this.mouseDownEvent();
+        });
+        this.app.view.addEventListener("mouseup", () => {
+            (this.mouse || {}).click = false;
+        });
+
+        this.app.view.addEventListener("mousemove", this.onMouseMove.bind(this));
     }
 
     async loadUIElements() {
@@ -96,6 +125,12 @@ export class Game {
         this.currentBackground = newBg ?? this.backgroundsCicle["day"];
         this.bgContainer.removeChildren();
         this.bgContainer.addChild(this.currentBackground.container);
+    }
+
+    async initEnemies() {
+        this.enemySpawner = new EnemySpawner(this);
+        await this.enemySpawner.loadEnemiesAssets();
+        this.enemySpawner.spawnEnemies();
     }
 }
 

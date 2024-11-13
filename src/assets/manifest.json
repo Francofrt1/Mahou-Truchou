@@ -23,6 +23,24 @@
          ]
       },
       {
+         "name": "ui-icons-bundle",
+         "assets": [
+            {
+               "alias": "pointer",
+               "src": "../assets/ui/pointer.png"
+            }
+         ]
+      },
+      {
+         "name": "enemies-bundle",
+         "assets": [
+            {
+               "alias": "bat",
+               "src": "../assets/sprites/enemy/bat/bat-spritesheet.json"
+            }
+         ]
+      },
+      {
          "name": "day-background-bundle",
          "assets": [
             {

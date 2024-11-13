@@ -4,6 +4,7 @@ export class Character extends GameObject {
     constructor(game, spritesheetAsset, maxVelocity = 5, x = 500, y = 500) {
         super(game, maxVelocity, x, y);
 
+        this.exp = 0;
         this.life = 100;
         this.baseAttack = 50;
         
@@ -29,5 +30,35 @@ export class Character extends GameObject {
         }
     
         super.update();
+    }
+
+    attack() {
+        this.setCurrentAnimation("attack");
+        this.currentAnimation.loop = false;
+        this.currentAnimation.gotoAndPlay(0);
+        this.currentAnimation.onComplete = () => {
+            this.setCurrentAnimation("idle");
+        };
+    
+        // let angle = Math.atan2(
+        //   this.game.mouse.x - this.app.stage.x - this.container.x,
+        //   this.game.mouse.y - this.app.stage.y - this.container.y
+        // );
+        // this.juego.balas.push(
+        //   new Bala(
+        //     this.container.x,
+        //     this.container.y - 40,
+        //     this.game,
+        //     Math.sin(angle),
+        //     Math.cos(angle)
+        //   )
+        // );
+    
+        this.velocity.x = 0;
+        this.velocity.y = 0;
+    }
+
+    async updateFacingDirection() {
+        this.container.scale.x = this.game.mouse.x - this.game.app.stage.x - this.container.x >= 0 ? 1 : -1
     }
 }

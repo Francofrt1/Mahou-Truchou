@@ -2,7 +2,7 @@ import { fastDistanceCalc } from './utility.js'
 import { generateId } from './utility.js';
 
 export class GameObject {
-    constructor(game, maxVelocity = 10, x = 100, y = 100) {
+    constructor(game, maxVelocity = 10, x = 100, y = 100, animSize = null) {
         this.id = generateId();
         this.container = new PIXI.Container();
         this.game = game;
@@ -14,6 +14,7 @@ export class GameObject {
         this.sqrMaxVelocity = maxVelocity * maxVelocity;
         this.container.x = x;
         this.container.y = y;
+        this.animSize = animSize;
 
         this.addSelfToCanvas();
     }
@@ -34,6 +35,9 @@ export class GameObject {
         , animSetUp = (animation) => {
             animation.animationSpeed = 0.3;
             animation.anchor.set(0.4, 0.6);
+            if(this.animSize != null) {
+              animation.setSize(this.animSize);
+            }
         }) {
         this.currentAnimation = this.animatedSprites[newAnimationName];
         animSetUp(this.currentAnimation);

@@ -8,7 +8,7 @@ export class Character extends GameObject {
         this.exp = 0;
         this.life = 100;
         this.baseAttack = 50;
-        this.skills = {"1": "screenBomb"};
+        this.skills = {"4": "screenBomb"};
         
         this.loadAnimationsFromSpritesheet(spritesheetAsset, () => {
             this.animation.animationSpeed = 0.3;

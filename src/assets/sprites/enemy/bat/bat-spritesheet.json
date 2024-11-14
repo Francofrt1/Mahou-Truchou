@@ -465,6 +465,10 @@
 			"bitetile000.png","bitetile001.png","bitetile002.png","bitetile003.png"
 			,"bitetile004.png","bitetile005.png","bitetile006.png"
 		]
+		, "hit": [
+			"flytile000.png","flytile001.png","flytile002.png","flytile003.png"
+			,"flytile004.png","flytile005.png","flytile006.png"
+		]
 		, "death": [
 			"deathtile000.png","deathtile001.png","deathtile002.png","deathtile003.png"
 			,"deathtile004.png","deathtile005.png","deathtile006.png"

@@ -3,13 +3,14 @@ import { GameObject } from "./gameObject.js";
 import { fastDistanceCalc } from "./utility.js";
 
 export class Projectile extends GameObject {
-    constructor(x, y, game, velX, velY, spritesheetAsset = [], color = "") {
+    constructor(x, y, game, velX, velY, spritesheetAsset = [], color = "", damage = 10) {
         super(game, 10, x, y);
         this.velocity.x = velX;
         this.velocity.y = velY;
         this.color = color;
         this.travelAmin = spritesheetAsset[0];
         this.hitAnim = spritesheetAsset[1];
+        this.damage = damage;
 
         this.game = game;
         this.grid = game.grid;
@@ -55,7 +56,7 @@ export class Projectile extends GameObject {
             }
 
             if (closest != null) {
-                objs[closest].getHit();
+                objs[closest].getHit(this.damage);
                 this.delete();
             }
         }

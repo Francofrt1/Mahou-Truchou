@@ -2,12 +2,15 @@ import { GameObject } from "./gameObject.js";
 import { fastDistanceCalc, squaredDistance, normalizeVector } from "./utility.js";
 
 export class Enemy extends GameObject {
-    constructor(game, spritesheetAsset, maxVelocity = 4, x = 800, y = 500) {
-        super(game, maxVelocity, x, y);
+    constructor(game, spritesheetAsset, maxVelocity = 4, x = 800, y = 500, life = 10, animSize = null, expGiven = 5, damage = 5) {
+        super(game, maxVelocity, x, y, animSize);
         this.neighbors = [];
 
+        this.expGiven = expGiven;
+        this.damage = damage;
+
         this.vision = 100 + Math.floor(Math.random() * 150);
-        this.life = 50;
+        this.life = life;
 
         this.loadAnimationsFromSpritesheet(spritesheetAsset, () => {
             this.animation.animationSpeed = 0.3;
@@ -15,7 +18,7 @@ export class Enemy extends GameObject {
         });
         this.setCurrentAnimation("idle");
 
-        this.states = { IDLE: 0, CHASING: 1, ATTACKING: 2 };
+        this.states = { IDLE: 0, CHASING: 1, ATTACKING: 2, GETTING_HIT: 3, DYING: 4 };
         this.state = this.states.IDLE;
     }
 
@@ -226,20 +229,40 @@ export class Enemy extends GameObject {
         return force;
     }
 
-    async getHit() {
-        this.life -= 10;
+    async getHit(damage) {
+        this.life -= damage;
         if (this.life <= 0) {
             this.delete();
         } else {
-            this.setCurrentAnimation("idle");
+            this.state = this.states.GETTING_HIT;
+            let animFn = (animation) => {
+                animation.animationSpeed = 0.1;
+                animation.anchor.set(0.4, 0.6);
+                if(this.animSize != null) {
+                    animation.setSize(this.animSize);
+                }
+            }
+            await this.setCurrentAnimation("hit", animFn);
+            this.currentAnimation.loop = false;
+            this.currentAnimation.gotoAndPlay(0);
+            this.currentAnimation.onComplete = () => { this.state = this.states.IDLE; };
             this.velocity.x = 0;
             this.velocity.y = 0;
         }
     }
 
     async delete() {
+        this.state = this.states.DYING;
+        this.game.character.exp += this.expGiven;
         this.game.enemySpawner.enemies = this.game.enemySpawner.enemies.filter((k) => k != this);
-        this.setCurrentAnimation("death");
+        let animFn = (animation) => {
+            animation.animationSpeed = 0.3;
+            animation.anchor.set(0.4, 0.6);
+            if(this.animSize != null) {
+                animation.setSize(this.animSize);
+            }
+        }
+        await this.setCurrentAnimation("death", animFn);
         this.currentAnimation.loop = false;
         this.currentAnimation.gotoAndPlay(0);
         this.currentAnimation.onComplete = () => { super.delete(); };

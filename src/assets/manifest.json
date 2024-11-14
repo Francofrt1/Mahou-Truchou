@@ -37,6 +37,10 @@
             {
                "alias": "bat",
                "src": "../assets/sprites/enemy/bat/bat-spritesheet.json"
+            },
+            {
+               "alias": "demon",
+               "src": "../assets/sprites/enemy/demon/demon-spritesheet.json"
             }
          ]
       },

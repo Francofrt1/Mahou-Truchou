@@ -1,0 +1,574 @@
+{
+	"frames": {
+		"attack-tile000.png": {
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"attack-tile001.png": {
+			"frame": {
+				"x": 84,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"attack-tile002.png": {
+			"frame": {
+				"x": 167,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"attack-tile003.png": {
+			"frame": {
+				"x": 250,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"attack-tile004.png": {
+			"frame": {
+				"x": 333,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"attack-tile005.png": {
+			"frame": {
+				"x": 416,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"attack-tile006.png": {
+			"frame": {
+				"x": 499,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"attack-tile007.png": {
+			"frame": {
+				"x": 582,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"death-tile000.png": {
+			"frame": {
+				"x": 665,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"death-tile001.png": {
+			"frame": {
+				"x": 748,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"death-tile002.png": {
+			"frame": {
+				"x": 831,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"death-tile003.png": {
+			"frame": {
+				"x": 914,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"death-tile004.png": {
+			"frame": {
+				"x": 997,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"death-tile005.png": {
+			"frame": {
+				"x": 1080,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"death-tile006.png": {
+			"frame": {
+				"x": 1163,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"flying-tile000.png": {
+			"frame": {
+				"x": 1246,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"flying-tile001.png": {
+			"frame": {
+				"x": 1329,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"flying-tile002.png": {
+			"frame": {
+				"x": 1412,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"flying-tile003.png": {
+			"frame": {
+				"x": 1495,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"hit-tile000.png": {
+			"frame": {
+				"x": 1578,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"hit-tile001.png": {
+			"frame": {
+				"x": 1661,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"hit-tile002.png": {
+			"frame": {
+				"x": 1744,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"hit-tile003.png": {
+			"frame": {
+				"x": 1827,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"idle-tile000.png": {
+			"frame": {
+				"x": 1910,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"idle-tile001.png": {
+			"frame": {
+				"x": 1993,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"idle-tile002.png": {
+			"frame": {
+				"x": 2076,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		},
+		"idle-tile003.png": {
+			"frame": {
+				"x": 2159,
+				"y": 1,
+				"w": 81,
+				"h": 71
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 81,
+				"h": 71
+			},
+			"sourceSize": {
+				"w": 81,
+				"h": 71
+			}
+		}
+	},
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "demon-spritesheet.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 2241,
+			"h": 73
+		},
+		"scale": "1"
+	},
+	"animations": {
+		"idle": [
+			"idle-tile000.png","idle-tile001.png","idle-tile002.png","idle-tile003.png"
+		]
+		, "running": [
+			"flying-tile000.png","flying-tile001.png","flying-tile002.png","flying-tile003.png"
+		]
+		, "attack": [
+			"attack-tile000.png","attack-tile001.png","attack-tile002.png","attack-tile003.png"
+			,"attack-tile004.png","attack-tile005.png","attack-tile006.png","attack-tile007.png"
+		]
+		, "hit": [
+			"hit-tile000.png","hit-tile001.png","hit-tile002.png","hit-tile003.png"
+		]
+		, "death": [
+			"death-tile000.png","death-tile001.png","death-tile002.png","death-tile003.png"
+			,"death-tile004.png","death-tile005.png","death-tile006.png"
+		]
+	}
+}

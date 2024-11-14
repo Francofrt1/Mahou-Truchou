@@ -41,6 +41,19 @@
          ]
       },
       {
+         "name": "effects-bundle",
+         "assets": [
+            {
+               "alias": "fireball",
+               "src": "../assets/sprites/effects/fireball/fireball-spritesheet.json"
+            },
+            {
+               "alias": "explosion",
+               "src": "../assets/sprites/effects/explosion/explosion-spritesheet.json"
+            }
+         ]
+      },
+      {
          "name": "day-background-bundle",
          "assets": [
             {

@@ -21,13 +21,13 @@ export class Cell {
       return Object.keys(this.presentObjects).length;
     }
 
-    async updateIfCanPass() {
-      if (this.objectsCount() > 2) {
-        this.passable = false;
-      } else {
-        this.passable = true;
-      }
-    }
+    // async updateIfCanPass() {
+    //   if (this.objectsCount() > 2) {
+    //     this.passable = false;
+    //   } else {
+    //     this.passable = true;
+    //   }
+    // }
   
     async getNeighborsCells() {
       let neighbors = [];
@@ -44,5 +44,5 @@ export class Cell {
       }
       return neighbors;
     }
-  }
+}
   

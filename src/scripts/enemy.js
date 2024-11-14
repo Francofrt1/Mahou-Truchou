@@ -6,7 +6,7 @@ export class Enemy extends GameObject {
         super(game, maxVelocity, x, y);
         this.neighbors = [];
 
-        this.vision = 100 + Math.floor(Math.random() * 150); //en pixels
+        this.vision = 100 + Math.floor(Math.random() * 150);
         this.life = 50;
 
         this.loadAnimationsFromSpritesheet(spritesheetAsset, () => {
@@ -19,10 +19,9 @@ export class Enemy extends GameObject {
         this.state = this.states.IDLE;
     }
 
-    //mirarAlrededor
     async lookAround() {
         this.neighbors = await this.obtainNeighbors();
-        this.neighborCells = await this.currentCell.getNeighborsCells();
+        this.neighborCells = await this.currentCell?.getNeighborsCells();
         this.seeingPlayer = await this.evaluateSeeingPlayer();
         this.neighborToPlayer = false;
         this.touchingPlayer = false;
@@ -32,16 +31,13 @@ export class Enemy extends GameObject {
         }
     
         if (this.neighborToPlayer) {
-            //SOLO SI LO TENGO DE VECINO, CALCULO LA DISTANCIA, Y ES LA DISTANCIA RAPIDA
             this.distanceToPlayer = fastDistanceCalc(
                 this.container.x,
                 this.container.y,
                 this.game.character.container.x,
                 this.game.character.container.y
             );
-            //Y SI LA DISTANCIA ES MENOR A UNA CELDA, Q EN ESTE CASO LAS CELDAS NOS QUEDAN A UNA DISTANCIA Q QUEDA BIEN
             if (this.distanceToPlayer < this.game.grid.cellSize) {
-                //ASUMIMOS Q ESTA TOCANDO AL PLAYER
                 this.touchingPlayer = true;
             }
         } else {
@@ -49,7 +45,6 @@ export class Enemy extends GameObject {
         }
     }
     
-    //hacerCosasSegunEstado
     async doActionsByState() {
         let vecPlaterAttraction,
         vecSeparation,
@@ -59,26 +54,21 @@ export class Enemy extends GameObject {
         
         let vectorsSum = new PIXI.Point(0, 0);
         
-        //CALCULO LA FUERZA Q TRAE AL PERSONAJE PADENTRO DE LA PANTALLA DE NUEVO
         borders = await this.adjustForBorders();
         
         if (this.state == this.states.CHASING) {
-            //SI ESTOY VIENDO AL PLAYER, HACERLE ATRACCION
             vecPlaterAttraction = await this.playerAttraction();
             this.setCurrentAnimation("running");
         } else if (this.state == this.states.IDLE) {
-            //CALCULO LOS VECTORES PARA LOS PASOS DE BOIDS, SI NO HAY TARGET
             vecAlignment = await this.alignment(this.neighbors);
             vecCohesion = await this.cohesion(this.neighbors);
             
             this.setCurrentAnimation("running");
         }
         
-        //PARA AMBOS ESTADOS: YENDO Y IDLE
         if (this.state == this.states.IDLE || this.state == this.states.CHASING) {
             vecSeparation = await this.separation(this.neighbors);
             
-            //SUMO LOS VECTORES ANTES DE APLICARLOS
             vectorsSum.x += (vecSeparation || {}).x || 0;
             vectorsSum.x += (vecAlignment || {}).x || 0;
             vectorsSum.x += (vecCohesion || {}).x || 0;
@@ -94,7 +84,6 @@ export class Enemy extends GameObject {
             this.applyForce(vectorsSum);
         }
     
-        // ATANCANDO
         if (this.state == this.states.ATTACKING) {
           this.velocity.x = 0;
           this.velocity.y = 0;
@@ -103,17 +92,13 @@ export class Enemy extends GameObject {
     }
     
     async update() {
-        //if (this.juego.contadorDeFrames % this.equipoParaUpdate == 0) {
-        this.lookAround();
         this.changeStateOnData();
         this.doActionsByState();
-        //}
     
-        //USA EL METODO UPDATE Q ESTA EN LA CLASE DE LA CUAL HEREDA ESTA:
-        super.update();
+        await super.update();
+        this.lookAround();
     }
 
-    //segunDatosCambiarDeEstado
     async changeStateOnData() {
         if (this.touchingPlayer) {
             this.state = this.states.ATTACKING;
@@ -124,15 +109,12 @@ export class Enemy extends GameObject {
         }
     }
     
-    //atacar
     async attack() {
-        //SI YA ESTABA ATANCANDO, NO CAMBIAR EL SPRITE
         if (this.currentAnimation == this.animatedSprites["attack"]) return;
     
         this.setCurrentAnimation("attack");
     }
     
-    //evaluarSiEstoyViendoAlPlayer
     async evaluateSeeingPlayer() {
         const sqrDistance = squaredDistance(
           this.container.x,
@@ -147,7 +129,6 @@ export class Enemy extends GameObject {
         return false;
     }
     
-    //atraccionAlJugador
     async playerAttraction() {
         const vecDistance = new PIXI.Point(
           this.game.character.container.x - this.container.x,
@@ -156,7 +137,6 @@ export class Enemy extends GameObject {
     
         let vecNormalized = normalizeVector(vecDistance.x, vecDistance.y);
     
-        //HACER NEGATIVO ESTE VECTOR Y LOS ZOMBIES TE HUYEN
         vecDistance.x = vecNormalized.x;
         vecDistance.y = vecNormalized.y;
         return vecDistance;
@@ -176,11 +156,9 @@ export class Enemy extends GameObject {
             vecAverage.x /= total;
             vecAverage.y /= total;
     
-            // Crear un vector que apunte hacia el centro de masa
             vecAverage.x = vecAverage.x - this.container.x;
             vecAverage.y = vecAverage.y - this.container.y;
     
-            // // Escalar para que sea proporcional a la velocidad máxima
             vecAverage.x *= 0.02;
             vecAverage.y *= 0.02;
         }
@@ -188,7 +166,6 @@ export class Enemy extends GameObject {
         return vecAverage;
     }
     
-    //separacion
     async separation(neighbors) {
         const vecForce = new PIXI.Point(0, 0);
     
@@ -215,7 +192,6 @@ export class Enemy extends GameObject {
         return vecForce;
     }
     
-    //alineacion
     async alignment(neighbors) {
         const vecAverage = new PIXI.Point(0, 0);
         let total = 0;
@@ -230,7 +206,6 @@ export class Enemy extends GameObject {
             vecAverage.x /= total;
             vecAverage.y /= total;
     
-            // Escalar para que sea proporcional a la velocidad máxima
             vecAverage.x *= 0.2;
             vecAverage.y *= 0.2;
         }
@@ -238,7 +213,6 @@ export class Enemy extends GameObject {
         return vecAverage;
     }
       
-    //ajustarPorBordes
     async adjustForBorders() {
         let force = new PIXI.Point(0, 0);
     
@@ -250,5 +224,24 @@ export class Enemy extends GameObject {
             force.y = -(this.container.y - this.game.canvasHeight);
     
         return force;
+    }
+
+    async getHit() {
+        this.life -= 10;
+        if (this.life <= 0) {
+            this.delete();
+        } else {
+            this.setCurrentAnimation("idle");
+            this.velocity.x = 0;
+            this.velocity.y = 0;
+        }
+    }
+
+    async delete() {
+        this.game.enemySpawner.enemies = this.game.enemySpawner.enemies.filter((k) => k != this);
+        this.setCurrentAnimation("death");
+        this.currentAnimation.loop = false;
+        this.currentAnimation.gotoAndPlay(0);
+        this.currentAnimation.onComplete = () => { super.delete(); };
     }
 }

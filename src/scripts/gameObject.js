@@ -1,7 +1,9 @@
-import { fastDistanceCalc } from './utility.js' 
+import { fastDistanceCalc } from './utility.js'
+import { generateId } from './utility.js';
 
 export class GameObject {
     constructor(game, maxVelocity = 10, x = 100, y = 100) {
+        this.id = generateId();
         this.container = new PIXI.Container();
         this.game = game;
         this.grid = game.grid;
@@ -75,7 +77,6 @@ export class GameObject {
         this.updateGridPosition();
     }
 
-    //estoyEnLaMismaCeldaQue
     async onSameCellAs(other) {
         return (
             other.currentCell &&
@@ -84,26 +85,22 @@ export class GameObject {
         );
     }
 
-    //actualizarPosicionEnGrid
     async updateGridPosition() {
         this.grid.update(this);
     }
 
-    //borrar
     async delete() {
         this.game.app.stage.removeChild(this.container);
     
         this.grid.remove(this);
     }
     
-    //obtenerVecinos
     async obtainNeighbors() {
         let neighbors = [];
         const cellSize = this.grid.cellSize;
         const xIndex = Math.floor(this.container.x / cellSize);
         const yIndex = Math.floor(this.container.y / cellSize);
         const margin = 1;
-        // Revisar celdas adyacentes
         for (let i = -margin; i <= margin; i++) {
           for (let j = -margin; j <= margin; j++) {
             const cell = await this.grid.getCell(xIndex + i, yIndex + j);
@@ -119,13 +116,11 @@ export class GameObject {
         return neighbors;
     }
 
-    //aplicarFuerza
     async applyForce(force) {
         if (!force) return;
         this.velocity.x += force.x;
         this.velocity.y += force.y;
     
-        // Limitar la velocidad máxima
         const sqrVelocity =
           this.velocity.x * this.velocity.x + this.velocity.y * this.velocity.y;
         if (sqrVelocity > this.sqrMaxVelocity) {

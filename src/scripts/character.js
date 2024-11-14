@@ -1,4 +1,5 @@
 import { GameObject } from "./gameObject.js";
+import { Projectile } from "./projectile.js";
 
 export class Character extends GameObject {
     constructor(game, spritesheetAsset, maxVelocity = 8, x = 500, y = 500) {
@@ -39,7 +40,7 @@ export class Character extends GameObject {
         super.update();
     }
 
-    attack() {
+    async attack() {
         this.setCurrentAnimation("attack");
         this.currentAnimation.loop = false;
         this.currentAnimation.gotoAndPlay(0);
@@ -47,19 +48,23 @@ export class Character extends GameObject {
             this.setCurrentAnimation("idle");
         };
     
-        // let angle = Math.atan2(
-        //   this.game.mouse.x - this.app.stage.x - this.container.x,
-        //   this.game.mouse.y - this.app.stage.y - this.container.y
-        // );
-        // this.juego.balas.push(
-        //   new Bala(
-        //     this.container.x,
-        //     this.container.y - 40,
-        //     this.game,
-        //     Math.sin(angle),
-        //     Math.cos(angle)
-        //   )
-        // );
+        let angle = Math.atan2(
+          this.game.mouse.x - this.game.app.stage.x - this.container.x,
+          this.game.mouse.y - this.game.app.stage.y - this.container.y
+        );
+
+        let projAnims = await this.game.getProjectileAnims("fireball");
+        this.game.projectiles.push(
+          new Projectile(
+            this.container.x,
+            this.container.y,
+            this.game,
+            Math.sin(angle),
+            Math.cos(angle),
+            projAnims,
+            "orange"
+          )
+        );
     
         this.velocity.x = 0;
         this.velocity.y = 0;

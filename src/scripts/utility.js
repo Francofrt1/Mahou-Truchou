@@ -14,9 +14,9 @@ export function fastDistanceCalc(x1, y1, x2, y2) {
 * @returns {number} The squared distance between 2 points.
 */
 export function squaredDistance(x1, y1, x2, y2) {
- const dx = x1 - x2;
- const dy = y1 - y2;
- return dx * dx + dy * dy;
+    const dx = x1 - x2;
+    const dy = y1 - y2;
+    return dx * dx + dy * dy;
 }
 
 export function normalizeVector(x, y) {
@@ -34,4 +34,14 @@ export function normalizeVector(x, y) {
     rta.y /= magnitude;
   
     return rta;
+}
+
+export function generateId(size = 8) {
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let id = "";
+    for (let i = 0; i < size; i++) {
+      id += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return id;
 }

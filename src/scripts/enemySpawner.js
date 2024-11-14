@@ -12,7 +12,7 @@ export class EnemySpawner {
         this.enemyAssets = await PIXI.Assets.loadBundle('enemies-bundle');
     }
 
-    async spawnEnemies(quantity = 200) {
+    async spawnEnemies(quantity = 1000) {
         for (let i = 0; i < quantity; i++) {
             const enemy = new Enemy(
                 this.game,

@@ -15,11 +15,13 @@ export class Game {
         this.inputKeys = {};
         this.ellapsedFrames = 0;
         this.boardWidth = window.innerWidth;
-        this.boardHeight = window.innerHeight * 0.98
+        this.boardHeight = window.innerHeight * 0.99
         this.enemySpawner;
         this.canvasWidth = window.innerWidth * 1.1;
         this.canvasHeight = window.innerHeight * 1.1;
-        this.grid = new Grid(50, this); // Cellsize 50
+        this.grid = new Grid(50, this);
+        this.projectiles = [];
+        this.effectAssets = {};
         this.app.init({ 
             width: this.boardWidth
             , height: this.boardHeight
@@ -46,6 +48,7 @@ export class Game {
         this.loadPlayerCharacter();
         await this.loadBackgroundsCicle();
         await this.initEnemies();
+        await this.loadEffects();
     }
 
     async gameLoop(deltaTime) {
@@ -54,6 +57,9 @@ export class Game {
         this.currentBackground.update();
         this.ui.update();
         this.enemySpawner.update();
+        this.projectiles.forEach((projectile) => {
+            projectile.update();
+        });
 
         if(this.ellapsedFrames % 4000 == 0) {
             this.cicleThroughBgs();
@@ -133,6 +139,15 @@ export class Game {
         this.enemySpawner = new EnemySpawner(this);
         await this.enemySpawner.loadEnemiesAssets();
         this.enemySpawner.spawnEnemies();
+    }
+
+    async loadEffects() {
+        const assets = await PIXI.Assets.loadBundle('effects-bundle');
+        this.effectAssets["fireball"] = [assets.fireball, assets.explosion];
+    }
+
+    async getProjectileAnims(type) {
+        return this.effectAssets[type];
     }
 }
 

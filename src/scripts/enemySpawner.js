@@ -31,4 +31,10 @@ export class EnemySpawner {
             enemy.update();
         });
     }
+
+    async deleteAllEnemies() {
+        this.enemies.forEach((enemy) => {
+            enemy.delete();
+        });
+    }
 }

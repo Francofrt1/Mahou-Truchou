@@ -79,7 +79,12 @@ export class Game {
 
     async addCharacterInputsListeners() {
         window.onkeydown = (e) => {
-            this.inputKeys[e.key.toLowerCase()] = true;
+            let key = e.key.toLowerCase();
+            if (["a","w","s","d"].includes(key)) {
+                this.inputKeys[key] = true;
+            } else if (["1","2","3","4"].includes(key)) {
+                this.character.activateSkill(key);
+            }
         }
         window.onkeyup = (e) => {
             delete this.inputKeys[e.key.toLowerCase()];
@@ -144,6 +149,7 @@ export class Game {
     async loadEffects() {
         const assets = await PIXI.Assets.loadBundle('effects-bundle');
         this.effectAssets["fireball"] = [assets.fireball, assets.explosion];
+        this.effectAssets["screenBomb"] = assets.screenBomb;
     }
 
     async getProjectileAnims(type) {

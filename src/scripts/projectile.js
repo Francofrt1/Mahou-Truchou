@@ -3,7 +3,7 @@ import { GameObject } from "./gameObject.js";
 import { fastDistanceCalc } from "./utility.js";
 
 export class Projectile extends GameObject {
-    constructor(x, y, game, velX, velY, spritesheetAsset = [], color = "orange") {
+    constructor(x, y, game, velX, velY, spritesheetAsset = [], color = "") {
         super(game, 10, x, y);
         this.velocity.x = velX;
         this.velocity.y = velY;
@@ -62,17 +62,22 @@ export class Projectile extends GameObject {
     }
 
     async delete() {
-        this.loadAnimationsFromSpritesheet(this.hitAnim, () => {
-            this.animation.animationSpeed = 0.3;
-            this.animation.anchor.set(0.4, 0.6);
-        });
-
-        this.setCurrentAnimation("hit-" + this.color);
-        this.currentAnimation.loop = false;
-        this.currentAnimation.gotoAndPlay(0);
         this.game.projectiles = this.game.projectiles.filter((k) => k != this);
-        let deleteFn = () => { super.delete(); };
-        this.currentAnimation.onComplete = () => deleteFn;
+        if(this.hitAnim) {
+            this.loadAnimationsFromSpritesheet(this.hitAnim, () => {
+                this.animation.animationSpeed = 0.3;
+                this.animation.anchor.set(0.4, 0.6);
+            });
+    
+            this.setCurrentAnimation("hit-" + this.color);
+            this.currentAnimation.loop = false;
+            this.currentAnimation.gotoAndPlay(0);
+            
+            let deleteFn = () => { super.delete(); };
+            this.currentAnimation.onComplete = () => deleteFn;
+        } else {
+            super.delete();
+        }
     }
 }
   

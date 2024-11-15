@@ -3,6 +3,7 @@ import { Background } from "./scripts/background.js";
 import { UserInterface } from "./scripts/userInterface.js";
 import { Grid } from "./scripts/grid.js";
 import { EnemySpawner } from "./scripts/enemySpawner.js";
+import { lerp } from "./scripts/utility.js";
 
 export class Game {
     constructor() {
@@ -17,14 +18,15 @@ export class Game {
         this.boardWidth = window.innerWidth;
         this.boardHeight = window.innerHeight * 0.99
         this.enemySpawner;
-        this.canvasWidth = window.innerWidth * 1.1;
+        this.canvasWidth = window.innerWidth * 2;
         this.canvasHeight = window.innerHeight * 1.1;
         this.grid = new Grid(50, this);
         this.projectiles = [];
         this.effectAssets = {};
         this.app.init({ 
-            width: this.boardWidth
-            , height: this.boardHeight
+            width: this.canvasWidth
+            , height: this.canvasHeight
+            , resizeTo: window,
         })
         .then(() => {
             this.setUp();
@@ -64,6 +66,8 @@ export class Game {
         if(this.ellapsedFrames % 4000 == 0) {
             this.cicleThroughBgs();
         }
+
+        this.moveCamera();
     }
 
     async mouseDownEvent() {
@@ -131,7 +135,7 @@ export class Game {
 
     async loadPlayerCharacter() {
         const playerCharacterAssets = await PIXI.Assets.loadBundle('player-bundle');
-        this.character = new Character(this, playerCharacterAssets.character);
+        this.character = new Character(this, playerCharacterAssets.character, 8, window.innerWidth / 2, window.innerHeight / 2);
     }
 
     async setCurrentBackground(newBg) {
@@ -154,6 +158,38 @@ export class Game {
 
     async getProjectileAnims(type) {
         return this.effectAssets[type];
+    }
+
+    async moveCamera() {
+        let lerpFactor = 0.05;
+        const playerX = this.character.container.x;
+        const playerY = this.character.container.y;
+    
+        const halfScreenWidth = this.app.screen.width / 2;
+        const halfScreenHeight = this.app.screen.height / 2;
+    
+        const targetX = halfScreenWidth - playerX;
+        const targetY = halfScreenHeight - playerY;
+    
+        const clampedX = Math.min(
+          Math.max(targetX, -(this.canvasWidth - this.app.screen.width)),
+          0
+        );
+        const clampedY = Math.min(
+          Math.max(targetY, -(this.canvasHeight - this.app.screen.height)),
+          0
+        );
+    
+        this.app.stage.position.x = lerp(
+          this.app.stage.position.x,
+          clampedX,
+          lerpFactor
+        );
+        this.app.stage.position.y = lerp(
+          this.app.stage.position.y,
+          clampedY,
+          lerpFactor
+        );
     }
 }
 

@@ -45,3 +45,7 @@ export function generateId(size = 8) {
     }
     return id;
 }
+
+export function lerp(start, end, alpha) {
+    return start + (end - start) * alpha;
+}

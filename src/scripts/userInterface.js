@@ -70,8 +70,8 @@ export class UserInterface {
     async update() {
         const mouse = this.game.mouse;
         if(!mouse) return;
-        const dx = mouse.x - this.pointerContainer.x;
-        const dy = mouse.y - this.pointerContainer.y;
+        const dx = mouse.x - this.game.app.stage.x - this.pointerContainer.x;
+        const dy = mouse.y - this.game.app.stage.y - this.pointerContainer.y;
         this.pointerContainer.rotation =  Math.atan2(dy, dx);
         this.pointerContainer.position = this.game.character.container.position;
     }

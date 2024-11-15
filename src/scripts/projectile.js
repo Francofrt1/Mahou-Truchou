@@ -22,8 +22,8 @@ export class Projectile extends GameObject {
 
         const mouse = this.game.mouse;
         if(!mouse) return;
-        const dx = mouse.x - this.container.x;
-        const dy = mouse.y - this.container.y;
+        const dx = mouse.x - this.game.app.stage.x - this.container.x;
+        const dy = mouse.y - this.game.app.stage.y - this.container.y;
         this.container.rotation =  Math.atan2(dy, dx);
 
         this.setCurrentAnimation("traveling-" + color);
@@ -32,7 +32,7 @@ export class Projectile extends GameObject {
     async update() {
         await super.update();
 
-        let outOfBounds = this.container.x < 0 || this.container.y > this.game.boardHeight || this.container.y < 0 || this.container.x > this.game.boardWidth
+        let outOfBounds = this.container.x < 0 || this.container.y > this.game.canvasHeight || this.container.y < 0 || this.container.x > this.game.canvasWidth
         if (outOfBounds) {
             this.delete();
         }

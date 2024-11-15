@@ -23,10 +23,10 @@ export class Character extends GameObject {
 
         if (this.container.x < 0) this.velocity.x = -this.container.x;
         if (this.container.y < 0) this.velocity.y = -this.container.y;
-        if (this.container.x > this.game.boardWidth)
-            this.velocity.x = -(this.container.x - this.game.boardWidth);
-        if (this.container.y > this.game.boardHeight)
-            this.velocity.y = -(this.container.y - this.game.boardHeight);
+        if (this.container.x > this.game.canvasWidth)
+            this.velocity.x = -(this.container.x - this.game.canvasWidth);
+        if (this.container.y > this.game.canvasHeight)
+            this.velocity.y = -(this.container.y - this.game.canvasHeight);
     }
 
     async update() {    

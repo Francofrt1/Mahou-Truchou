@@ -89,8 +89,8 @@ export class Character extends GameObject {
         let startX = 50;
         let startY = 50;
 
-        for (let j = 0; j < 9; j++) {
-            for (let i = 0; i < 28; i++) {
+        for (let j = 0; j < 11; j++) {
+            for (let i = 0; i < 50; i++) {
                 let bomb = new GameObject(this.game, 0, startX, startY);
                 await bomb.loadAnimationsFromSpritesheet(assets, () => {
                     this.animation.animationSpeed = 0.3;

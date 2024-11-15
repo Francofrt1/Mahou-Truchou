@@ -1,2 +1,2 @@
-source: /src/
-include: ["/src/assets"]
+#source: /src/
+#include: ["/src/assets"]

@@ -5,7 +5,7 @@
          "assets": [
             {
                "alias": "character",
-               "src": "../assets/sprites/player-character/player-character.json"
+               "src": "./assets/sprites/player-character/player-character.json"
             }
          ]
       },
@@ -14,11 +14,11 @@
          "assets": [
             {
                "alias": "bold-twilight-font",
-               "src": "../assets/fonts/6.BoldBubblegum/BMFontXML/BoldBubblegum.xml"
+               "src": "./assets/fonts/6.BoldBubblegum/BMFontXML/BoldBubblegum.xml"
             },
             {
                "alias": "bold-bubblegum-font",
-               "src": "../assets/fonts/8.BoldTwilight/BMFontXML/BoldTwilight.xml"
+               "src": "./assets/fonts/8.BoldTwilight/BMFontXML/BoldTwilight.xml"
             }
          ]
       },
@@ -27,7 +27,7 @@
          "assets": [
             {
                "alias": "pointer",
-               "src": "../assets/ui/pointer.png"
+               "src": "./assets/ui/pointer.png"
             }
          ]
       },
@@ -36,11 +36,11 @@
          "assets": [
             {
                "alias": "bat",
-               "src": "../assets/sprites/enemy/bat/bat-spritesheet.json"
+               "src": "./assets/sprites/enemy/bat/bat-spritesheet.json"
             },
             {
                "alias": "demon",
-               "src": "../assets/sprites/enemy/demon/demon-spritesheet.json"
+               "src": "./assets/sprites/enemy/demon/demon-spritesheet.json"
             }
          ]
       },
@@ -49,15 +49,15 @@
          "assets": [
             {
                "alias": "fireball",
-               "src": "../assets/sprites/effects/fireball/fireball-spritesheet.json"
+               "src": "./assets/sprites/effects/fireball/fireball-spritesheet.json"
             },
             {
                "alias": "explosion",
-               "src": "../assets/sprites/effects/explosion/explosion-spritesheet.json"
+               "src": "./assets/sprites/effects/explosion/explosion-spritesheet.json"
             },
             {
                "alias": "screenBomb",
-               "src": "../assets/sprites/effects/screenBomb/screenBomb-spritesheet.json"
+               "src": "./assets/sprites/effects/screenBomb/screenBomb-spritesheet.json"
             }
          ]
       },
@@ -66,19 +66,19 @@
          "assets": [
             {
                "alias": "background-1",
-               "src": "../assets/background/Clouds/Clouds1/1.png"
+               "src": "./assets/background/Clouds/Clouds1/1.png"
             },
             {
                "alias": "background-2",
-               "src": "../assets/background/Clouds/Clouds1/2.png"
+               "src": "./assets/background/Clouds/Clouds1/2.png"
             },
             {
                "alias": "background-3",
-               "src": "../assets/background/Clouds/Clouds1/3.png"
+               "src": "./assets/background/Clouds/Clouds1/3.png"
             },
             {
                "alias": "background-4",
-               "src": "../assets/background/Clouds/Clouds1/4.png"
+               "src": "./assets/background/Clouds/Clouds1/4.png"
             }
          ]
       },
@@ -87,23 +87,23 @@
          "assets": [
             {
                "alias": "background-1",
-               "src": "../assets/background/Clouds/Clouds5/1.png"
+               "src": "./assets/background/Clouds/Clouds5/1.png"
             },
             {
                "alias": "background-2",
-               "src": "../assets/background/Clouds/Clouds5/2.png"
+               "src": "./assets/background/Clouds/Clouds5/2.png"
             },
             {
                "alias": "background-3",
-               "src": "../assets/background/Clouds/Clouds5/3.png"
+               "src": "./assets/background/Clouds/Clouds5/3.png"
             },
             {
                "alias": "background-4",
-               "src": "../assets/background/Clouds/Clouds5/4.png"
+               "src": "./assets/background/Clouds/Clouds5/4.png"
             },
             {
                "alias": "background-5",
-               "src": "../assets/background/Clouds/Clouds5/5.png"
+               "src": "./assets/background/Clouds/Clouds5/5.png"
             }
          ]
       },
@@ -112,27 +112,27 @@
          "assets": [
             {
                "alias": "background-1",
-               "src": "../assets/background/Clouds/Clouds6/1.png"
+               "src": "./assets/background/Clouds/Clouds6/1.png"
             },
             {
                "alias": "background-2",
-               "src": "../assets/background/Clouds/Clouds6/2.png"
+               "src": "./assets/background/Clouds/Clouds6/2.png"
             },
             {
                "alias": "background-3",
-               "src": "../assets/background/Clouds/Clouds6/3.png"
+               "src": "./assets/background/Clouds/Clouds6/3.png"
             },
             {
                "alias": "background-4",
-               "src": "../assets/background/Clouds/Clouds6/4.png"
+               "src": "./assets/background/Clouds/Clouds6/4.png"
             },
             {
                "alias": "background-5",
-               "src": "../assets/background/Clouds/Clouds6/5.png"
+               "src": "./assets/background/Clouds/Clouds6/5.png"
             },
             {
                "alias": "background-6",
-               "src": "../assets/background/Clouds/Clouds6/6.png"
+               "src": "./assets/background/Clouds/Clouds6/6.png"
             }
          ]
       },
@@ -141,19 +141,19 @@
          "assets": [
             {
                "alias": "background-1",
-               "src": "../assets/background/Clouds/Clouds7/1.png"
+               "src": "./assets/background/Clouds/Clouds7/1.png"
             },
             {
                "alias": "background-2",
-               "src": "../assets/background/Clouds/Clouds7/2.png"
+               "src": "./assets/background/Clouds/Clouds7/2.png"
             },
             {
                "alias": "background-3",
-               "src": "../assets/background/Clouds/Clouds7/3.png"
+               "src": "./assets/background/Clouds/Clouds7/3.png"
             },
             {
                "alias": "background-4",
-               "src": "../assets/background/Clouds/Clouds7/4.png"
+               "src": "./assets/background/Clouds/Clouds7/4.png"
             }
          ]
       },
@@ -162,19 +162,19 @@
          "assets": [
             {
                "alias": "background-1",
-               "src": "../assets/background/Clouds/Clouds3/1.png"
+               "src": "./assets/background/Clouds/Clouds3/1.png"
             },
             {
                "alias": "background-2",
-               "src": "../assets/background/Clouds/Clouds3/2.png"
+               "src": "./assets/background/Clouds/Clouds3/2.png"
             },
             {
                "alias": "background-3",
-               "src": "../assets/background/Clouds/Clouds3/3.png"
+               "src": "./assets/background/Clouds/Clouds3/3.png"
             },
             {
                "alias": "background-4",
-               "src": "../assets/background/Clouds/Clouds3/4.png"
+               "src": "./assets/background/Clouds/Clouds3/4.png"
             }
          ]
       },
@@ -183,27 +183,27 @@
          "assets": [
             {
                "alias": "background-1",
-               "src": "../assets/background/Clouds/Clouds8/1.png"
+               "src": "./assets/background/Clouds/Clouds8/1.png"
             },
             {
                "alias": "background-2",
-               "src": "../assets/background/Clouds/Clouds8/2.png"
+               "src": "./assets/background/Clouds/Clouds8/2.png"
             },
             {
                "alias": "background-3",
-               "src": "../assets/background/Clouds/Clouds8/3.png"
+               "src": "./assets/background/Clouds/Clouds8/3.png"
             },
             {
                "alias": "background-4",
-               "src": "../assets/background/Clouds/Clouds8/4.png"
+               "src": "./assets/background/Clouds/Clouds8/4.png"
             },
             {
                "alias": "background-5",
-               "src": "../assets/background/Clouds/Clouds8/5.png"
+               "src": "./assets/background/Clouds/Clouds8/5.png"
             },
             {
                "alias": "background-6",
-               "src": "../assets/background/Clouds/Clouds8/6.png"
+               "src": "./assets/background/Clouds/Clouds8/6.png"
             }
          ]
       },
@@ -212,19 +212,19 @@
          "assets": [
             {
                "alias": "background-1",
-               "src": "../assets/background/Clouds/Clouds4/1.png"
+               "src": "./assets/background/Clouds/Clouds4/1.png"
             },
             {
                "alias": "background-2",
-               "src": "../assets/background/Clouds/Clouds4/2.png"
+               "src": "./assets/background/Clouds/Clouds4/2.png"
             },
             {
                "alias": "background-3",
-               "src": "../assets/background/Clouds/Clouds4/3.png"
+               "src": "./assets/background/Clouds/Clouds4/3.png"
             },
             {
                "alias": "background-4",
-               "src": "../assets/background/Clouds/Clouds4/4.png"
+               "src": "./assets/background/Clouds/Clouds4/4.png"
             }
          ]
       },
@@ -233,19 +233,19 @@
          "assets": [
             {
                "alias": "background-1",
-               "src": "../assets/background/Clouds/Clouds2/1.png"
+               "src": "./assets/background/Clouds/Clouds2/1.png"
             },
             {
                "alias": "background-2",
-               "src": "../assets/background/Clouds/Clouds2/2.png"
+               "src": "./assets/background/Clouds/Clouds2/2.png"
             },
             {
                "alias": "background-3",
-               "src": "../assets/background/Clouds/Clouds2/3.png"
+               "src": "./assets/background/Clouds/Clouds2/3.png"
             },
             {
                "alias": "background-4",
-               "src": "../assets/background/Clouds/Clouds2/4.png"
+               "src": "./assets/background/Clouds/Clouds2/4.png"
             }
          ]
       }

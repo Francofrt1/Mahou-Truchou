@@ -1,19 +1,93 @@
 <!DOCTYPE html>
-<html style="background-color: black;">
+<html>
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mahou Truchou</title>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <style>
+      html {
+        background: rgb(238,174,202);
+        background: linear-gradient(90deg, rgba(148,187,233,1) 0%, rgba(238,174,202,1) 100%);
+      }
+
+      body {
+        background-image: url('./assets/ui/title.png');
+        background-color: rgba(255,255,255,0.1);
+      }
+
       body,html{
         overflow: hidden;
         margin:0;
+      }
+
+      #playBtn {
+        align-items: center;
+        background-color: #fee6e3;
+        border: 3px solid #111;
+        border-radius: 8px;
+        box-sizing: border-box;
+        color: #111;
+        cursor: pointer;
+        display: flex;
+        font-family: Inter,sans-serif;
+        font-size: 90px;
+        height: 120px;
+        justify-content: center;
+        line-height: 24px;
+        max-width: 100%;
+        padding: 0 25px;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+
+        background: rgb(238,174,202);
+        background: linear-gradient(90deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+      }
+
+      #playBtn:after {
+        background-color: #111;
+        border-radius: 8px;
+        content: "";
+        display: block;
+        height: 120px;
+        left: 0;
+        width: 100%;
+        position: absolute;
+        top: -2px;
+        transform: translate(8px, 8px);
+        transition: transform .2s ease-out;
+        z-index: -1;
+      }
+
+      #playBtn:hover:after {
+        transform: translate(0, 0);
+      }
+
+      #playBtn:active {
+        background-color: #ffdeda;
+        outline: 0;
+      }
+
+      #playBtn:hover {
+        outline: 0;
+      }
+
+      @media (min-width: 768px) {
+        #playBtn {
+          padding: 0 40px;
+        }
       }
     </style>
     <script src="https://pixijs.download/release/pixi.js"></script>
   </head>
   <body>
     <script src="./index.js" type="module"></script>
+    <div style="display: flex;justify-content: center;align-items: center;text-align: center;min-height: 170vh;">
+      <button id="playBtn">Play</button>
+    </div>
   </body>
 </html>

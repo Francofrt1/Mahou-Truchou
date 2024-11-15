@@ -193,4 +193,9 @@ export class Game {
     }
 }
 
-let game = new Game();
+let mainGame;
+document.getElementById("playBtn").onclick = (e) => {
+    e.target.parentElement.style.display = "none";
+
+    mainGame = new Game();
+}

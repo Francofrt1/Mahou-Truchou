@@ -46,7 +46,7 @@ export class Game {
     }
 
     async loadGameElements() {
-        await PIXI.Assets.init({manifest: "./assets/manifest.json"});
+        await PIXI.Assets.init({manifest: "assets/manifest.json"});
         this.loadPlayerCharacter();
         await this.loadBackgroundsCicle();
         await this.initEnemies();

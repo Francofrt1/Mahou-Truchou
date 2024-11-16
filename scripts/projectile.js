@@ -75,7 +75,7 @@ export class Projectile extends GameObject {
             this.currentAnimation.gotoAndPlay(0);
             
             let deleteFn = () => { super.delete(); };
-            this.currentAnimation.onComplete = () => deleteFn;
+            this.currentAnimation.onComplete = () => { deleteFn() };
         } else {
             super.delete();
         }

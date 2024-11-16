@@ -41,6 +41,18 @@
             {
                "alias": "demon",
                "src": "./assets/sprites/enemy/demon/demon-spritesheet.json"
+            },
+            {
+               "alias": "necromancer",
+               "src": "./assets/sprites/enemy/necromancer/necromancer-spritesheet.json"
+            },
+            {
+               "alias": "undead",
+               "src": "./assets/sprites/enemy/undead/undead-spritesheet.json"
+            },
+            {
+               "alias": "creature",
+               "src": "./assets/sprites/enemy/creature/creature-spritesheet.json"
             }
          ]
       },

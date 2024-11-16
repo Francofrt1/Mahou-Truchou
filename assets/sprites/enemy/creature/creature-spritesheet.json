@@ -1,0 +1,337 @@
+{
+	"frames": {
+		"appear-tile000.png": {
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 50,
+				"h": 50
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 50,
+				"h": 50
+			},
+			"sourceSize": {
+				"w": 50,
+				"h": 50
+			}
+		},
+		"appear-tile001.png": {
+			"frame": {
+				"x": 53,
+				"y": 1,
+				"w": 50,
+				"h": 50
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 50,
+				"h": 50
+			},
+			"sourceSize": {
+				"w": 50,
+				"h": 50
+			}
+		},
+		"appear-tile002.png": {
+			"frame": {
+				"x": 105,
+				"y": 1,
+				"w": 50,
+				"h": 50
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 50,
+				"h": 50
+			},
+			"sourceSize": {
+				"w": 50,
+				"h": 50
+			}
+		},
+		"appear-tile003.png": {
+			"frame": {
+				"x": 157,
+				"y": 1,
+				"w": 50,
+				"h": 50
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 50,
+				"h": 50
+			},
+			"sourceSize": {
+				"w": 50,
+				"h": 50
+			}
+		},
+		"appear-tile004.png": {
+			"frame": {
+				"x": 209,
+				"y": 1,
+				"w": 50,
+				"h": 50
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 50,
+				"h": 50
+			},
+			"sourceSize": {
+				"w": 50,
+				"h": 50
+			}
+		},
+		"appear-tile005.png": {
+			"frame": {
+				"x": 261,
+				"y": 1,
+				"w": 50,
+				"h": 50
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 50,
+				"h": 50
+			},
+			"sourceSize": {
+				"w": 50,
+				"h": 50
+			}
+		},
+		"death-tile000.png": {
+			"frame": {
+				"x": 313,
+				"y": 1,
+				"w": 50,
+				"h": 50
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 50,
+				"h": 50
+			},
+			"sourceSize": {
+				"w": 50,
+				"h": 50
+			}
+		},
+		"death-tile001.png": {
+			"frame": {
+				"x": 365,
+				"y": 1,
+				"w": 50,
+				"h": 50
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 50,
+				"h": 50
+			},
+			"sourceSize": {
+				"w": 50,
+				"h": 50
+			}
+		},
+		"death-tile002.png": {
+			"frame": {
+				"x": 417,
+				"y": 1,
+				"w": 50,
+				"h": 50
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 50,
+				"h": 50
+			},
+			"sourceSize": {
+				"w": 50,
+				"h": 50
+			}
+		},
+		"death-tile003.png": {
+			"frame": {
+				"x": 469,
+				"y": 1,
+				"w": 50,
+				"h": 50
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 50,
+				"h": 50
+			},
+			"sourceSize": {
+				"w": 50,
+				"h": 50
+			}
+		},
+		"death-tile004.png": {
+			"frame": {
+				"x": 521,
+				"y": 1,
+				"w": 50,
+				"h": 50
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 50,
+				"h": 50
+			},
+			"sourceSize": {
+				"w": 50,
+				"h": 50
+			}
+		},
+		"idle-tile000.png": {
+			"frame": {
+				"x": 573,
+				"y": 1,
+				"w": 50,
+				"h": 50
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 50,
+				"h": 50
+			},
+			"sourceSize": {
+				"w": 50,
+				"h": 50
+			}
+		},
+		"idle-tile001.png": {
+			"frame": {
+				"x": 625,
+				"y": 1,
+				"w": 50,
+				"h": 50
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 50,
+				"h": 50
+			},
+			"sourceSize": {
+				"w": 50,
+				"h": 50
+			}
+		},
+		"idle-tile002.png": {
+			"frame": {
+				"x": 677,
+				"y": 1,
+				"w": 50,
+				"h": 50
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 50,
+				"h": 50
+			},
+			"sourceSize": {
+				"w": 50,
+				"h": 50
+			}
+		},
+		"idle-tile003.png": {
+			"frame": {
+				"x": 729,
+				"y": 1,
+				"w": 50,
+				"h": 50
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 50,
+				"h": 50
+			},
+			"sourceSize": {
+				"w": 50,
+				"h": 50
+			}
+		}
+	},
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "creature-spritesheet.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 780,
+			"h": 52
+		},
+		"scale": "1"
+	},
+	"animations": {
+		"idle": [
+			"idle-tile000.png","idle-tile001.png","idle-tile002.png","idle-tile003.png"
+		]
+		, "running": [
+			"idle-tile000.png","idle-tile001.png","idle-tile002.png","idle-tile003.png"
+		]
+		, "attack": [
+			"idle-tile000.png","idle-tile001.png","idle-tile002.png","idle-tile003.png"
+		]
+		, "hit": [
+			"idle-tile000.png","idle-tile001.png","idle-tile002.png","idle-tile003.png"
+		]
+		, "death": [
+			"death-tile000.png","death-tile001.png","death-tile002.png","death-tile003.png"
+			, "death-tile004.png"
+		]
+		,"appear": [
+			"appear-tile000.png","appear-tile001.png","appear-tile002.png","appear-tile003.png"
+			, "appear-tile004.png", "appear-tile005.png"
+		]
+	}
+}

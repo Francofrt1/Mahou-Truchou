@@ -152,6 +152,10 @@ export class Game {
         this.enemySpawner = new EnemySpawner(this);
         await this.enemySpawner.loadEnemiesAssets();
         this.enemySpawner.spawnEnemies();
+
+        this.setCounter(30, () => {
+            this.enemySpawner.spawnEnemies();
+        }, true);
     }
 
     async loadEffects() {
@@ -215,6 +219,10 @@ export class Game {
                     }
             }
         );
+    }
+
+    async secondsSinceGameStarted() {
+        return this.ellapsedFrames / 60;
     }
 }
 

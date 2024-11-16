@@ -20,14 +20,6 @@ export class Cell {
     async objectsCount() {
       return Object.keys(this.presentObjects).length;
     }
-
-    // async updateIfCanPass() {
-    //   if (this.objectsCount() > 2) {
-    //     this.passable = false;
-    //   } else {
-    //     this.passable = true;
-    //   }
-    // }
   
     async getNeighborsCells() {
       let neighbors = [];

@@ -2,7 +2,7 @@ import { GameObject } from "./gameObject.js";
 import { fastDistanceCalc, squaredDistance, normalizeVector } from "./utility.js";
 
 export class Enemy extends GameObject {
-    constructor(game, spritesheetAsset, maxVelocity = 4, x = 800, y = 500, life = 10, animSize = null, expGiven = 5, damage = 5) {
+    constructor(game, spritesheetAsset, maxVelocity = 4, x = 800, y = 500, life = 10, expGiven = 5, damage = 5, animSize = null) {
         super(game, maxVelocity, x, y, animSize);
         this.neighbors = [];
 
@@ -11,6 +11,8 @@ export class Enemy extends GameObject {
 
         this.vision = 100 + Math.floor(Math.random() * 150);
         this.life = life;
+        this.hitted = false;
+        this.dead = false;
 
         this.loadAnimationsFromSpritesheet(spritesheetAsset, () => {
             this.animation.animationSpeed = 0.3;
@@ -54,7 +56,6 @@ export class Enemy extends GameObject {
         vecAlignment,
         vecCohesion,
         borders;
-        
         let vectorsSum = new PIXI.Point(0, 0);
         
         borders = await this.adjustForBorders();
@@ -92,6 +93,16 @@ export class Enemy extends GameObject {
           this.velocity.y = 0;
           this.attack();
         }
+
+        if(this.state == this.states.GETTING_HIT) {
+            if (this.currentAnimation == this.animatedSprites["hit"]) return;
+            await this.playHitAnimation();
+        }
+
+        if(this.state == this.states.DYING) {
+            if (this.currentAnimation == this.animatedSprites["death"]) return;
+            await this.playDeathAnimation();
+        }
     }
     
     async update() {
@@ -103,7 +114,11 @@ export class Enemy extends GameObject {
     }
 
     async changeStateOnData() {
-        if (this.touchingPlayer) {
+        if(this.dead) {
+            this.state = this.states.DYING;
+        } else if(this.hitted) {
+            this.state = this.states.GETTING_HIT;
+        }else if (this.touchingPlayer) {
             this.state = this.states.ATTACKING;
         } else if (this.seeingPlayer) {
             this.state = this.states.CHASING;
@@ -232,29 +247,36 @@ export class Enemy extends GameObject {
     async getHit(damage) {
         this.life -= damage;
         if (this.life <= 0) {
+            if(this.state == this.states.DYING) return;
             this.delete();
         } else {
-            this.state = this.states.GETTING_HIT;
-            let animFn = (animation) => {
-                animation.animationSpeed = 0.1;
-                animation.anchor.set(0.4, 0.6);
-                if(this.animSize != null) {
-                    animation.setSize(this.animSize);
-                }
-            }
-            await this.setCurrentAnimation("hit", animFn);
-            this.currentAnimation.loop = false;
-            this.currentAnimation.gotoAndPlay(0);
-            this.currentAnimation.onComplete = () => { this.state = this.states.IDLE; };
+            this.hitted = true;
             this.velocity.x = 0;
             this.velocity.y = 0;
         }
     }
 
+    async playHitAnimation() {
+        let animFn = (animation) => {
+            animation.animationSpeed = 0.3;
+            animation.anchor.set(0.4, 0.6);
+            if(this.animSize != null) {
+                animation.setSize(this.animSize);
+            }
+        }
+        await this.setCurrentAnimation("hit", animFn);
+        this.currentAnimation.loop = false;
+        this.currentAnimation.gotoAndPlay(0);
+        this.currentAnimation.onComplete = () => { this.hitted = false };
+    }
+
     async delete() {
-        this.state = this.states.DYING;
+        if(this.dead) return;
+        this.dead = true;
         this.game.character.exp += this.expGiven;
-        this.game.enemySpawner.enemies = this.game.enemySpawner.enemies.filter((k) => k != this);
+    }
+
+    async playDeathAnimation() {
         let animFn = (animation) => {
             animation.animationSpeed = 0.3;
             animation.anchor.set(0.4, 0.6);
@@ -265,6 +287,6 @@ export class Enemy extends GameObject {
         await this.setCurrentAnimation("death", animFn);
         this.currentAnimation.loop = false;
         this.currentAnimation.gotoAndPlay(0);
-        this.currentAnimation.onComplete = () => { super.delete(); };
+        this.currentAnimation.onComplete = () => { this.game.enemySpawner.enemies = this.game.enemySpawner.enemies.filter((k) => k != this); super.delete(); };
     }
 }

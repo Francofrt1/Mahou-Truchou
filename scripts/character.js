@@ -11,25 +11,18 @@ export class Character extends GameObject {
         this.baseAttack = 50;
         this.skills = {"1": "shield", "2": "shockWave", "3": "blackHole", "4": "screenBomb"};
         this.usedSkills = {"1": false, "2": false, "3": false, "4": false};
-        this.skillsCooldown = {"1": 15, "2": 30, "3": 60, "4": 120}; //seconds
+        this.skillsCooldown = {"1": 5, "2": 15, "3": 30, "4": 60}; //seconds
         this.level = 1;
         this.maxLife = 100;
         this.colorByLevel = {1: "orange", 2: "blue", 3: "green", 4: "yellow", 5: "white"
             , 6: "violet", 7: "dark-yellow", 8: "red", 9: "dark-violet", 10: "dark-violet"
         };
-        this.initSkillsCooldown();
 
         this.loadAnimationsFromSpritesheet(spritesheetAsset, () => {
             this.animation.animationSpeed = 0.3;
             this.animation.anchor.set(0.4, 0.6);
         });
         this.setCurrentAnimation("idle");
-    }
-    
-    initSkillsCooldown() {
-        for (const [key, value] of Object.entries(this.skillsCooldown)) {
-            this.skillsCooldown[key] = value * 60; //convert to frames at 60fps
-        }
     }
 
     async handleMovementInputs() {
@@ -52,7 +45,6 @@ export class Character extends GameObject {
         } else if (this.currentAnimation == this.animatedSprites["running"]) {
           this.setCurrentAnimation("idle");
         }
-        this.skillsUpdate();
         this.checkLevelUp();
         super.update();
     }
@@ -62,17 +54,6 @@ export class Character extends GameObject {
             this.level += this.level < 10 ? 1 : 0;
             this.maxLife += 100;
             this.life = this.maxLife;
-        }
-    }
-
-    async skillsUpdate() {
-        let ellapsedFrames = this.game.ellapsedFrames;
-        if(this.shielded && ellapsedFrames % 200 == 0) {
-            this.shielded = false;
-        }
-
-        for (const [key, value] of Object.entries(this.usedSkills)) {
-            this.usedSkills[key] = ellapsedFrames % this.skillsCooldown[key] == 0;
         }
     }
 
@@ -117,6 +98,9 @@ export class Character extends GameObject {
         }
         const assets = await this.game.getProjectileAnims(this.skills[key]);
         this.usedSkills[key] = true;
+
+        this.game.setCounter(this.skillsCooldown[key], () => { this.usedSkills[key] = false; })
+
         switch (this.skills[key]) {
             case "screenBomb":
                 this.screenBomb(assets);
@@ -160,6 +144,7 @@ export class Character extends GameObject {
 
     async shield(assets) {
         this.shielded = true;
+        this.game.setCounter(4, () => { this.shielded = false });
         let shield = new GameObject(this.game, 0, this.container.x, this.container.y);
         await shield.loadAnimationsFromSpritesheet(assets, () => {
             this.animation.animationSpeed = 0.3;

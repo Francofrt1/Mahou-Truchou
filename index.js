@@ -23,6 +23,7 @@ export class Game {
         this.grid = new Grid(50, this);
         this.projectiles = [];
         this.effectAssets = {};
+        this.counters = [];
         this.app.init({ 
             width: this.canvasWidth
             , height: this.canvasHeight
@@ -63,9 +64,10 @@ export class Game {
             projectile.update();
         });
 
-        if(this.ellapsedFrames % 4000 == 0) {
-            this.cicleThroughBgs();
-        }
+        this.counters = this.counters.filter(x => !x.executed);
+        this.counters.forEach((counter, i) => {
+            counter.fn(this.ellapsedFrames, i);
+        });
 
         this.moveCamera();
     }
@@ -123,6 +125,8 @@ export class Game {
         this.backgroundsCicle["night-2"] = new Background(this, await PIXI.Assets.loadBundle('night-background-2-bundle'));
         this.backgroundsCicle["morning"] = new Background(this, await PIXI.Assets.loadBundle('morning-background-bundle'));
         this.backgroundsCicle["morning-2"] = new Background(this, await PIXI.Assets.loadBundle('morning-background-2-bundle'));
+
+        this.setCounter(66, () => { this.cicleThroughBgs() }, true);
     }
 
     async cicleThroughBgs() {
@@ -192,6 +196,24 @@ export class Game {
           this.app.stage.position.y,
           clampedY,
           lerpFactor
+        );
+    }
+
+    async setCounter(seconds, fnToExecute = () => {}, loop = false) {
+        let startFrames = this.ellapsedFrames;
+        this.counters.push(
+            {
+                executed: false,
+                fn: (ellapsedFrames, index) => {
+                        if((ellapsedFrames - startFrames) % (seconds * 60) == 0) 
+                        { 
+                            fnToExecute();
+                            if(!loop) {
+                                this.counters[index].executed = true; 
+                            }
+                        }
+                    }
+            }
         );
     }
 }

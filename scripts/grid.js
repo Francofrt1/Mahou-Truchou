@@ -16,15 +16,6 @@ export class Grid {
             }
         }
     }
-
-  // async getCellPX(x, y) {
-  //     const xIndex = Math.floor(x / this.cellSize);
-  //     const yIndex = Math.floor(y / this.cellSize);
-  
-  //     let newx = Math.max(0, Math.min(this.numColumns - 1, xIndex));
-  //     let newy = Math.max(0, Math.min(this.numRows - 1, yIndex));
-  //     return this.cells[newx][newy];
-  // }
   
   async getCell(x, y) {
       let newx = Math.max(0, Math.min(this.numColumns - 1, x));
@@ -47,15 +38,6 @@ export class Grid {
         object.currentCell.remove(object);
       }
   }
-  
-  // async updateIfCanPass() {
-  //     for (let i = 0; i < this.cells.length; i++) {
-  //       for (let j = 0; j < this.cells[i].length; j++) {
-  //         let cell = this.cells[i][j];
-  //         if (cell) cell.updateIfCanPass();
-  //       }
-  //     }
-  // }
   
   async update(object) {
       this.remove(object);

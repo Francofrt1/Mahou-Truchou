@@ -1,5 +1,6 @@
 import { GameObject } from "./gameObject.js";
 import { Projectile } from "./projectile.js";
+import { fastDistanceCalc } from "./utility.js";
 
 export class Character extends GameObject {
     constructor(game, spritesheetAsset, maxVelocity = 8, x = 500, y = 500) {
@@ -8,15 +9,20 @@ export class Character extends GameObject {
         this.exp = 0;
         this.life = 100;
         this.shielded = false;
-        this.baseAttack = 50;
+        this.baseAttack = 10;
         this.skills = {"1": "shield", "2": "shockWave", "3": "blackHole", "4": "screenBomb"};
         this.usedSkills = {"1": false, "2": false, "3": false, "4": false};
-        this.skillsCooldown = {"1": 5, "2": 15, "3": 30, "4": 60}; //seconds
+        this.skillsCooldown = {"1": 5, "2": 10, "3": 15, "4": 30}; //seconds
         this.level = 1;
         this.maxLife = 100;
         this.colorByLevel = {1: "orange", 2: "blue", 3: "green", 4: "yellow", 5: "white"
             , 6: "violet", 7: "dark-yellow", 8: "red", 9: "dark-violet", 10: "dark-violet"
         };
+
+        this.shockWaveRange = 70;
+        this.shockWaveForce = 120;
+        this.blackHoleRange = 350;
+        this.blackHoleActiveTime = 4;
 
         this.loadAnimationsFromSpritesheet(spritesheetAsset, () => {
             this.animation.animationSpeed = 0.3;
@@ -80,6 +86,7 @@ export class Character extends GameObject {
             Math.cos(angle),
             projAnims,
             this.colorByLevel[this.level]
+            , this.baseAttack
           )
         );
     
@@ -168,19 +175,58 @@ export class Character extends GameObject {
         shockWave.currentAnimation.loop = false;
         shockWave.currentAnimation.gotoAndPlay(0);
         shockWave.currentAnimation.onComplete = () => { shockWave.delete()};
+
+        this.game.enemySpawner.enemies.forEach(enemy => {
+
+            let distanceToEnemy = fastDistanceCalc(
+                enemy.container.x,
+                enemy.container.y,
+                this.container.x,
+                this.container.y
+            );
+
+            if(distanceToEnemy < this.shockWaveRange) {
+                enemy.getHit(this.baseAttack / 2);
+                enemy.container.x += this.container.x < enemy.container.x ? this.shockWaveForce : -this.shockWaveForce
+                enemy.container.y += this.container.y < enemy.container.y ? this.shockWaveForce : -this.shockWaveForce
+            }
+        });
     }
 
     async blackHole(assets) {
-        let blackHole = new GameObject(this.game, 0, this.container.x, this.container.y);
-        await blackHole.loadAnimationsFromSpritesheet(assets, () => {
-            this.animation.animationSpeed = 0.3;
-            this.animation.anchor.set(0.4, 0.6);
-        });
-        await blackHole.setCurrentAnimation("blackHole-" + this.colorByLevel[this.level]);
-        blackHole.currentAnimation.setSize(100);
-        blackHole.currentAnimation.loop = false;
-        blackHole.currentAnimation.gotoAndPlay(0);
-        blackHole.currentAnimation.onComplete = () => { blackHole.delete()};
+        let startX = this.game.mouse.x - this.game.app.stage.x;
+        let startY = this.game.mouse.y - this.game.app.stage.y;
+
+        for (let i = 0; i < this.blackHoleActiveTime; i++) {
+            this.game.setCounter(0.1 + i, () => {
+                let blackHole = new GameObject(this.game, 0, startX, startY);
+                blackHole.loadAnimationsFromSpritesheet(assets, () => {
+                    this.animation.animationSpeed = 0.3;
+                    this.animation.anchor.set(0.4, 0.6);
+                });
+                blackHole.setCurrentAnimation("blackHole-" + this.colorByLevel[this.level]);
+                blackHole.currentAnimation.setSize(100);
+                blackHole.currentAnimation.loop = false;
+                blackHole.currentAnimation.gotoAndPlay(0);
+                blackHole.currentAnimation.onComplete = () => { blackHole.delete()};
+    
+                this.game.enemySpawner.enemies.forEach(enemy => {
+    
+                    let distanceToEnemy = fastDistanceCalc(
+                        enemy.container.x,
+                        enemy.container.y,
+                        blackHole.container.x,
+                        blackHole.container.y
+                    );
+    
+                    if(distanceToEnemy < this.blackHoleRange) {
+                        enemy.getHit(this.baseAttack / 4);
+                        enemy.container.x = blackHole.container.x + distanceToEnemy * 0.2
+                        enemy.container.y = blackHole.container.y + distanceToEnemy * 0.2
+                    }
+                });
+            });
+        }
     }
 
     async getHit(damage) {

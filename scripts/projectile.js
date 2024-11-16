@@ -70,7 +70,7 @@ export class Projectile extends GameObject {
                 this.animation.anchor.set(0.4, 0.6);
             });
     
-            this.setCurrentAnimation("hit-" + this.color);
+            await this.setCurrentAnimation("hit-" + this.color);
             this.currentAnimation.loop = false;
             this.currentAnimation.gotoAndPlay(0);
             

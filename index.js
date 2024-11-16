@@ -154,6 +154,9 @@ export class Game {
         const assets = await PIXI.Assets.loadBundle('effects-bundle');
         this.effectAssets["fireball"] = [assets.fireball, assets.explosion];
         this.effectAssets["screenBomb"] = assets.screenBomb;
+        this.effectAssets["shield"] = assets.shield;
+        this.effectAssets["shockWave"] = assets.shockWave;
+        this.effectAssets["blackHole"] = assets.blackHole;
     }
 
     async getProjectileAnims(type) {

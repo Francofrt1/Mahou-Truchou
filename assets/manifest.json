@@ -58,6 +58,18 @@
             {
                "alias": "screenBomb",
                "src": "./assets/sprites/effects/screenBomb/screenBomb-spritesheet.json"
+            },
+            {
+               "alias": "shield",
+               "src": "./assets/sprites/effects/shieldSkill/shieldSkill-spritesheet.json"
+            },
+            {
+               "alias": "blackHole",
+               "src": "./assets/sprites/effects/blackHole/blackHole-spritesheet.json"
+            },
+            {
+               "alias": "shockWave",
+               "src": "./assets/sprites/effects/shockWave/shockWave-spritesheet.json"
             }
          ]
       },

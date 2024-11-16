@@ -114,8 +114,8 @@ export class Enemy extends GameObject {
     
     async attack() {
         if (this.currentAnimation == this.animatedSprites["attack"]) return;
-    
         this.setCurrentAnimation("attack");
+        this.game.character.getHit(this.damage);
     }
     
     async evaluateSeeingPlayer() {

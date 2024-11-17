@@ -2,7 +2,7 @@ import { fastDistanceCalc } from './utility.js'
 import { generateId } from './utility.js';
 
 export class GameObject {
-    constructor(game, maxVelocity = 10, x = 100, y = 100, animSize = null) {
+    constructor(game, maxVelocity = 10, x = 100, y = 100, animSize = null, addToStage = true) {
         this.id = generateId();
         this.container = new PIXI.Container();
         this.animContainer = new PIXI.Container();
@@ -16,12 +16,15 @@ export class GameObject {
         this.container.x = x;
         this.container.y = y;
         this.animSize = animSize;
+        this.addToStage = addToStage;
 
         this.addSelfToCanvas();
     }
 
     async addSelfToCanvas() {
-        this.game.app.stage.addChild(this.container);
+        if(this.addToStage) {
+          this.game.app.stage.addChild(this.container);
+        }
         this.container.addChild(this.animContainer);
     }
 
@@ -96,7 +99,11 @@ export class GameObject {
     }
 
     async delete() {
+      if(this.addToStage) {
         this.game.app.stage.removeChild(this.container);
+      } else {
+        this.container.removeFromParent()
+      }
     
         this.grid.remove(this);
     }

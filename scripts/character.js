@@ -178,17 +178,11 @@ export class Character extends GameObject {
 
     async shield(assets) {
         this.shielded = true;
-        this.game.setCounter(5, () => { this.shielded = false });
-        let shield = new GameObject(this.game, 0, this.container.x, this.container.y);
-        await shield.loadAnimationsFromSpritesheet(assets, () => {
-            this.animation.animationSpeed = 0.3;
-            this.animation.anchor.set(0.4, 0.6);
-        });
+        let shield = new GameObject(this.game, 0, 0, 0, null, false);
+        await shield.loadAnimationsFromSpritesheet(assets);
+        this.container.addChild(shield.container);
         await shield.setCurrentAnimation("shield-" + this.colorByLevel[this.level]);
-        shield.currentAnimation.setSize(100);
-        shield.currentAnimation.loop = false;
-        shield.currentAnimation.gotoAndPlay(0);
-        shield.currentAnimation.onComplete = () => { shield.delete()};
+        this.game.setCounter(5, () => { shield.delete(); this.shielded = false });
     }
 
     async shockWave(assets) {

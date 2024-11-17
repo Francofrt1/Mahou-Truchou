@@ -28,6 +28,26 @@
             {
                "alias": "pointer",
                "src": "./assets/ui/pointer.png"
+            },
+            {
+               "alias": "lockIcon",
+               "src": "./assets/ui/icons/padlock.png"
+            },
+            {
+               "alias": "shockWaveIcon",
+               "src": "./assets/ui/icons/lightning-dissipation.png"
+            },
+            {
+               "alias": "shieldIcon",
+               "src": "./assets/ui/icons/magic-shield.png"
+            },
+            {
+               "alias": "screenBombIcon",
+               "src": "./assets/ui/icons/mushroom-cloud.png"
+            },
+            {
+               "alias": "blackHoleIcon",
+               "src": "./assets/ui/icons/black-hole-bolas.png"
             }
          ]
       },

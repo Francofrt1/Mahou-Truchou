@@ -13,17 +13,18 @@ export class Character extends GameObject {
         this.baseAttack = 10;
         this.skills = {"1": "shield", "2": "shockWave", "3": "blackHole", "4": "screenBomb"};
         this.usedSkills = {"1": false, "2": false, "3": false, "4": false};
-        this.skillsCooldown = {"1": 5, "2": 10, "3": 15, "4": 30}; //seconds
+        this.lockedSkills = {"1": true, "2": true, "3": true, "4": true};
+        this.skillsCooldown = {"1": 7, "2": 10, "3": 15, "4": 60}; //seconds
         this.level = 1;
         this.maxLife = 1000;
         this.colorByLevel = {1: "orange", 2: "blue", 3: "green", 4: "yellow", 5: "white"
             , 6: "violet", 7: "dark-yellow", 8: "red", 9: "dark-violet", 10: "dark-violet"
         };
 
-        this.shockWaveRange = 70;
-        this.shockWaveForce = 120;
+        this.shockWaveRange = 100;
+        this.shockWaveForce = 130;
         this.blackHoleRange = 350;
-        this.blackHoleActiveTime = 4;
+        this.blackHoleActiveTime = 5;
 
         this.loadAnimationsFromSpritesheet(spritesheetAsset, () => {
             this.animation.animationSpeed = 0.3;
@@ -59,9 +60,31 @@ export class Character extends GameObject {
     async checkLevelUp() {
         if(this.exp >= this.expToLvl) {
             this.level += this.level < 10 ? 1 : 0;
-            this.maxLife += 100;
+            this.maxLife += this.level >= 10 ? 0 : 1000;
             this.life = this.maxLife;
-            this.expToLvl *= this.level;
+            this.expToLvl += this.level * 700;
+            this.baseAttack += 20;
+
+            switch (this.level) {
+                case 2:
+                    this.lockedSkills["1"] = false;
+                    this.game.ui.unlockSkill("1");
+                    break;
+                case 4:
+                    this.lockedSkills["2"] = false;
+                    this.game.ui.unlockSkill("2");
+                    break;
+                case 6:
+                    this.lockedSkills["3"] = false;
+                    this.game.ui.unlockSkill("3");
+                    break;
+                case 8:
+                    this.lockedSkills["4"] = false;
+                    this.game.ui.unlockSkill("4");
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -102,7 +125,7 @@ export class Character extends GameObject {
     }
 
     async activateSkill(key) {
-        if(this.usedSkills[key]) {
+        if(this.lockedSkills[key] || this.usedSkills[key]) {
             return;
         }
         const assets = await this.game.getProjectileAnims(this.skills[key]);
@@ -148,12 +171,14 @@ export class Character extends GameObject {
             startX = 50;
         }
 
-        this.game.enemySpawner.deleteAllEnemies();
+        let actualExp = this.exp;
+        await this.game.enemySpawner.deleteAllEnemies();
+        this.exp = actualExp;
     }
 
     async shield(assets) {
         this.shielded = true;
-        this.game.setCounter(4, () => { this.shielded = false });
+        this.game.setCounter(5, () => { this.shielded = false });
         let shield = new GameObject(this.game, 0, this.container.x, this.container.y);
         await shield.loadAnimationsFromSpritesheet(assets, () => {
             this.animation.animationSpeed = 0.3;

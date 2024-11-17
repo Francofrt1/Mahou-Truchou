@@ -16,6 +16,8 @@ export class Boss extends Enemy {
 
             this.rangeAttack();
         }, true);
+
+        this.life = this.game.character.baseAttack * 150;
     }
 
     async playerAttraction() {

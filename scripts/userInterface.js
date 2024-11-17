@@ -8,17 +8,27 @@ export class UserInterface {
         this.lifeText;
         this.expText;
         this.lvlText;
+        this.shieldIcon = new PIXI.Container();
+        this.shockWaveIcon = new PIXI.Container();
+        this.blackHoleIcon = new PIXI.Container();
+        this.screenBombIcon = new PIXI.Container();
+        this.skillIconsContainers = { "1": this.shieldIcon, "2": this.shockWaveIcon, "3": this.blackHoleIcon, "4": this.screenBombIcon }
+        this.ready = false;
+        this.icons;
+        this.skillIcons = {};
         this.setUp();
     }
 
     async setUp() {
         await this.loadFontBundles();
-        const icons = await this.loadIcons();
+        this.icons = await this.loadIcons();
+        this.skillIcons = { "1": this.icons.shieldIcon, "2": this.icons.shockWaveIcon, "3": this.icons.blackHoleIcon, "4": this.icons.screenBombIcon }
 
         this.game.app.stage.addChild(this.container);
         this.game.app.stage.addChild(this.pointerContainer);
 
-        this.startHUD(icons);
+        await this.startHUD(this.icons);
+        this.ready = true;
     }
 
     async loadFontBundles() {
@@ -29,16 +39,30 @@ export class UserInterface {
         return await PIXI.Assets.loadBundle('ui-icons-bundle');
     }
 
-    async startHUD(icons) {
+    async startHUD() {
         await this.startFonts();
-        await this.startIcons(icons);
+        await this.startIcons();
     }
 
-    async startIcons(icons) {
-        const pointer = new PIXI.Sprite(icons.pointer);
+    async startIcons() {
+        const pointer = new PIXI.Sprite(this.icons.pointer);
         pointer.scale.set(0.5, 0.5);
         pointer.anchor.set(0.5);
         this.pointerContainer.addChild(pointer);
+
+        let array = [this.shieldIcon, this.shockWaveIcon, this.blackHoleIcon, this.screenBombIcon];
+
+        array.forEach((e, i) => {
+            let lock = new PIXI.Sprite(this.icons.lockIcon);
+            lock.scale.set(0.3, 0.3);
+            lock.anchor.set(0.5);
+
+            e.addChild(lock);
+            e.x = 800 + i * 100;
+            e.y = 850;
+
+            this.container.addChild(e);
+        });
     }
 
     async startFonts() {
@@ -128,6 +152,18 @@ export class UserInterface {
         this.updateTexts();
 
         this.updatePointerRotation();
+        this.updateUsedSkills();
+    }
+
+    async updateUsedSkills() {
+        for(let key in this.game.character.usedSkills) {
+            let used = this.game.character.usedSkills[key];
+            if(used) {
+                this.skillIconsContainers[key].tint = "grey";
+            } else {
+                this.skillIconsContainers[key].tint = "white";
+            }
+        }
     }
 
     async moveInterface() {
@@ -172,7 +208,7 @@ export class UserInterface {
     }
 
     async updateTexts() {
-        if(!this.game.character) return;
+        if(!this.ready || !this.game.character) return;
         let currentLife = this.game.character.life;
         let maxLife = this.game.character.maxLife;
         this.lifeText.text = `${currentLife}/${maxLife}HP`;
@@ -183,5 +219,15 @@ export class UserInterface {
 
         let lvl = this.game.character.level;
         this.lvlText.text = `Lvl.${lvl}`;
+    }
+
+    async unlockSkill(skill) {
+        let container = this.skillIconsContainers[skill];
+        const sprite = new PIXI.Sprite(this.skillIcons[skill]);
+        sprite.scale.set(0.3, 0.3);
+        sprite.anchor.set(0.5);
+
+        container.removeChildren();
+        container.addChild(sprite);
     }
 }

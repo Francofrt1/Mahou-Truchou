@@ -158,7 +158,7 @@ export class Game {
         }, true);
 
         //500
-        this.setCounter(500, () => {
+        this.setCounter(300, () => {
             this.enemySpawner.spawnBoss();
         });
     }

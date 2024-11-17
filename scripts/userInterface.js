@@ -16,6 +16,7 @@ export class UserInterface {
         this.ready = false;
         this.icons;
         this.skillIcons = {};
+        this.clock;
         this.setUp();
     }
 
@@ -42,6 +43,7 @@ export class UserInterface {
     async startHUD() {
         await this.startFonts();
         await this.startIcons();
+        await this.startClock();
     }
 
     async startIcons() {
@@ -58,8 +60,8 @@ export class UserInterface {
             lock.anchor.set(0.5);
 
             e.addChild(lock);
-            e.x = 800 + i * 100;
-            e.y = 850;
+            e.x = this.game.boardWidth / 2.35 + i * 100;
+            e.y = this.game.boardHeight - 50;
 
             this.container.addChild(e);
         });
@@ -99,7 +101,7 @@ export class UserInterface {
 
         let lvl = this.game.character.level;
         this.lvlText = new PIXI.BitmapText({
-            text: `Lvl.${lvl}`,
+            text: `Lvl. ${lvl}`,
             style: {
                 fontFamily: 'BoldTwilight',
                 fontSize: 55,
@@ -218,7 +220,7 @@ export class UserInterface {
         this.expText.text = `${xp}/${xpL}XP`;
 
         let lvl = this.game.character.level;
-        this.lvlText.text = `Lvl.${lvl}`;
+        this.lvlText.text = `Lvl. ${lvl}`;
     }
 
     async unlockSkill(skill) {
@@ -229,5 +231,42 @@ export class UserInterface {
 
         container.removeChildren();
         container.addChild(sprite);
+    }
+
+    async makeClockString(time) {
+        const minutes = Math.floor(time / 60);
+        const seconds = time - minutes * 60;
+
+        const fn = (string, pad, length) => {
+            return (new Array(length + 1).join(pad) + string).slice(-length);
+        }
+          
+        const finalTime = fn(minutes, '0', 2) + ':' + fn(seconds, '0', 2);
+
+        return finalTime;
+    }
+
+    async startClock() {
+        let time = this.game.bossSpawnTime;
+        this.clock = new PIXI.BitmapText({
+            text: `${await this.makeClockString(time)}`,
+            style: {
+                fontFamily: 'BoldTwilight',
+                fontSize: 55,
+                align: 'right'
+            }
+        });
+
+        this.clock.x = this.game.boardWidth - 250;
+        this.clock.y = 50;
+
+        this.container.addChild(this.clock);
+    }
+
+    async updateClock() {
+        let time = this.game.bossSpawnTime;
+        let ellapsedTime = await this.game.secondsSinceGameStarted();
+
+        this.clock.text = `${await this.makeClockString(time - ellapsedTime)}`
     }
 }

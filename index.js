@@ -24,6 +24,9 @@ export class Game {
         this.projectiles = [];
         this.effectAssets = {};
         this.counters = [];
+        this.bossSpawnTime = 300;
+        this.spawnEnemyInterval = 30;
+
         this.app.init({ 
             width: this.canvasWidth
             , height: this.canvasHeight
@@ -126,7 +129,7 @@ export class Game {
         this.backgroundsCicle["morning"] = new Background(this, await PIXI.Assets.loadBundle('morning-background-bundle'));
         this.backgroundsCicle["morning-2"] = new Background(this, await PIXI.Assets.loadBundle('morning-background-2-bundle'));
 
-        this.setCounter(62, () => { this.cicleThroughBgs() }, true);
+        this.setCounter(35, () => { this.cicleThroughBgs() }, true);
     }
 
     async cicleThroughBgs() {
@@ -153,14 +156,17 @@ export class Game {
         await this.enemySpawner.loadEnemiesAssets();
         this.enemySpawner.spawnEnemies();
 
-        this.setCounter(30, () => {
+        this.setCounter(this.spawnEnemyInterval, () => {
             this.enemySpawner.spawnEnemies();
         }, true);
 
-        //500
-        this.setCounter(300, () => {
+        this.setCounter(this.bossSpawnTime, () => {
             this.enemySpawner.spawnBoss();
         });
+
+        this.setCounter(1, () => {
+            this.ui.updateClock();
+        }, true);
     }
 
     async loadEffects() {

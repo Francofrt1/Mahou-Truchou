@@ -1,4 +1,5 @@
 import { Enemy } from "./enemy.js";
+import { Boss } from "./boss.js";
 
 export class EnemySpawner {
     constructor(game, baseQuantity = 50) {
@@ -15,6 +16,8 @@ export class EnemySpawner {
         this.normalEnemyDist = 30;
         this.hardEnemyDist = 0;
         this.maxQuantity = 1300;
+        this.bossSpawned = false;
+        this.boss = null;
     }
 
     async loadEnemiesAssets() {
@@ -22,6 +25,7 @@ export class EnemySpawner {
     }
 
     async spawnEnemies() {
+        if(this.bossSpawned) return;
 
         let gameTime = await this.game.secondsSinceGameStarted();
         let timesSpawned = Math.trunc(gameTime / 20);
@@ -116,5 +120,13 @@ export class EnemySpawner {
         this.enemies.forEach((enemy) => {
             enemy.delete();
         });
+    }
+
+    async spawnBoss() {
+        this.bossSpawned = true;
+        this.deleteAllEnemies()
+        this.boss = new Boss(this.game, this.enemyAssets.necromancer, 5, window.innerWidth / 2, window.innerHeight / 2);
+        this.enemies.push(this.boss);
+        this.grid.add(this.boss);
     }
 }

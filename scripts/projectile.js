@@ -11,6 +11,7 @@ export class Projectile extends GameObject {
         this.travelAmin = spritesheetAsset[0];
         this.hitAnim = spritesheetAsset[1];
         this.damage = damage;
+        this.distMin = 99999;
 
         this.game = game;
         this.grid = game.grid;
@@ -36,10 +37,17 @@ export class Projectile extends GameObject {
         if (outOfBounds) {
             this.delete();
         }
-  
-        let objs = Object.values((this.currentCell || {}).presentObjects || {}).filter((k) => k instanceof Enemy);
+        
+        let objs = await this.getObjectsToHit();
+        this.searchForHit(objs);
+    }
+
+    async getObjectsToHit() {
+        return Object.values((this.currentCell || {}).presentObjects || {}).filter((k) => k instanceof Enemy);
+    }
+
+    async searchForHit(objs) {
         if (objs.length > 0) {
-            let distMin = 99999;
             let closest = null;
             for (let i = 0; i < objs.length; i++) {
                 let dist = fastDistanceCalc(
@@ -49,8 +57,8 @@ export class Projectile extends GameObject {
                     objs[i].container.y
                 );
 
-                if (dist < distMin) {
-                    distMin = dist;
+                if (dist < this.distMin) {
+                    this.distMin = dist;
                     closest = i;
                 }
             }

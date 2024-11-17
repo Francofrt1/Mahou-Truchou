@@ -7,14 +7,15 @@ export class Character extends GameObject {
         super(game, maxVelocity, x, y);
 
         this.exp = 0;
-        this.life = 100;
+        this.expToLvl = 100;
+        this.life = 1000;
         this.shielded = false;
         this.baseAttack = 10;
         this.skills = {"1": "shield", "2": "shockWave", "3": "blackHole", "4": "screenBomb"};
         this.usedSkills = {"1": false, "2": false, "3": false, "4": false};
         this.skillsCooldown = {"1": 5, "2": 10, "3": 15, "4": 30}; //seconds
         this.level = 1;
-        this.maxLife = 100;
+        this.maxLife = 1000;
         this.colorByLevel = {1: "orange", 2: "blue", 3: "green", 4: "yellow", 5: "white"
             , 6: "violet", 7: "dark-yellow", 8: "red", 9: "dark-violet", 10: "dark-violet"
         };
@@ -56,10 +57,11 @@ export class Character extends GameObject {
     }
 
     async checkLevelUp() {
-        if(this.exp >= this.level * 100) {
+        if(this.exp >= this.expToLvl) {
             this.level += this.level < 10 ? 1 : 0;
             this.maxLife += 100;
             this.life = this.maxLife;
+            this.expToLvl *= this.level;
         }
     }
 
@@ -232,5 +234,20 @@ export class Character extends GameObject {
     async getHit(damage) {
         if(this.shielded) return;
         this.life -= damage;
+        if(this.life <= 0) {
+            await this.die();
+        }
+    }
+
+    async die() {
+        await this.setCurrentAnimation("death");
+        this.currentAnimation.loop = false;
+        this.currentAnimation.gotoAndPlay(0);
+        this.currentAnimation.onComplete = () => { 
+            this.container.x = 0;
+            this.container.y = 0;
+            this.delete();
+            this.game.playerDied(); 
+        };
     }
 }

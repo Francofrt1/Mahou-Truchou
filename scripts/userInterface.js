@@ -1,9 +1,13 @@
+import { lerp } from "./utility.js";
+
 export class UserInterface {
     constructor(game) {
         this.game = game;
         this.container = new PIXI.Container();
         this.pointerContainer = new PIXI.Container();
-
+        this.lifeText;
+        this.expText;
+        this.lvlText;
         this.setUp();
     }
 
@@ -12,6 +16,7 @@ export class UserInterface {
         const icons = await this.loadIcons();
 
         this.game.app.stage.addChild(this.container);
+        this.game.app.stage.addChild(this.pointerContainer);
 
         this.startHUD(icons);
     }
@@ -30,7 +35,6 @@ export class UserInterface {
     }
 
     async startIcons(icons) {
-        this.container.addChild(this.pointerContainer);
         const pointer = new PIXI.Sprite(icons.pointer);
         pointer.scale.set(0.5, 0.5);
         pointer.anchor.set(0.5);
@@ -38,22 +42,10 @@ export class UserInterface {
     }
 
     async startFonts() {
-        let bitmapFontText = new PIXI.BitmapText({
-            text: '100XP',
-            style: {
-                fontFamily: 'BoldTwilight',
-                fontSize: 55,
-                align: 'left'
-            }
-        });
 
-        bitmapFontText.x = 50;
-        bitmapFontText.y = 200;
-
-        this.container.addChild(bitmapFontText);
-
-        bitmapFontText = new PIXI.BitmapText({
-            text: '100HP',
+        let hp = this.game.character.maxLife;
+        this.lifeText = new PIXI.BitmapText({
+            text: `${hp}/${hp}HP`,
             style: {
                 fontFamily: 'BoldBubblegum',
                 fontSize: 55,
@@ -61,18 +53,135 @@ export class UserInterface {
             }
         });
 
-        bitmapFontText.x = 50;
-        bitmapFontText.y = 100;
+        this.lifeText.x = 50;
+        this.lifeText.y = 100;
+
+        this.container.addChild(this.lifeText);
+
+        let xp = this.game.character.expToLvl;
+        this.expText = new PIXI.BitmapText({
+            text: `0/${xp}XP`,
+            style: {
+                fontFamily: 'BoldTwilight',
+                fontSize: 55,
+                align: 'left'
+            }
+        });
+
+        this.expText.x = 50;
+        this.expText.y = 200;
+
+        this.container.addChild(this.expText);
+
+        let lvl = this.game.character.level;
+        this.lvlText = new PIXI.BitmapText({
+            text: `Lvl.${lvl}`,
+            style: {
+                fontFamily: 'BoldTwilight',
+                fontSize: 55,
+                align: 'left'
+            }
+        });
+
+        this.lvlText.x = 50;
+        this.lvlText.y = 50;
+
+        this.container.addChild(this.lvlText);
+    }
+
+    async winMessage() {
+        this.container.removeChildren();
+        let bitmapFontText = new PIXI.BitmapText({
+            text: 'YOU WIN!',
+            style: {
+                fontFamily: 'BoldTwilight',
+                fontSize: 80,
+                align: 'center'
+            }
+        });
+
+        bitmapFontText.x = window.innerWidth / 2;
+        bitmapFontText.y = window.innerHeight / 2;
+
+        this.container.addChild(bitmapFontText);
+    }
+
+    async deathMessage() {
+        this.container.removeChildren();
+        let bitmapFontText = new PIXI.BitmapText({
+            text: 'You Failed...',
+            style: {
+                fontFamily: 'BoldTwilight',
+                fontSize: 80,
+                align: 'center'
+            }
+        });
+
+        bitmapFontText.x = window.innerWidth / 2 - 100;
+        bitmapFontText.y = window.innerHeight / 2 - 400;
 
         this.container.addChild(bitmapFontText);
     }
 
     async update() {
+        await this.moveInterface();
+        this.updateTexts();
+
+        this.updatePointerRotation();
+    }
+
+    async moveInterface() {
+        let lerpFactor = 0.05;
+        const playerX = this.game.character.container.x;
+        const playerY = this.game.character.container.y;
+    
+        const halfScreenWidth = this.game.app.screen.width / 2;
+        const halfScreenHeight = this.game.app.screen.height / 2;
+    
+        const targetX = halfScreenWidth - playerX;
+        const targetY = halfScreenHeight - playerY;
+    
+        const clampedX = Math.min(
+          Math.max(targetX, -(this.game.canvasWidth - this.game.app.screen.width)),
+          0
+        );
+        const clampedY = Math.min(
+          Math.max(targetY, -(this.game.canvasHeight - this.game.app.screen.height)),
+          0
+        );
+    
+        this.container.position.x = -lerp(
+          this.game.app.stage.position.x,
+          clampedX,
+          lerpFactor
+        );
+        this.container.position.y = -lerp(
+          this.game.app.stage.position.y,
+          clampedY,
+          lerpFactor
+        );
+    }
+
+    async updatePointerRotation() {
         const mouse = this.game.mouse;
         if(!mouse) return;
         const dx = mouse.x - this.game.app.stage.x - this.pointerContainer.x;
         const dy = mouse.y - this.game.app.stage.y - this.pointerContainer.y;
         this.pointerContainer.rotation =  Math.atan2(dy, dx);
         this.pointerContainer.position = this.game.character.container.position;
+    }
+
+    async updateTexts() {
+        if(!this.game.character) return;
+        let currentLife = this.game.character.life;
+        let maxLife = this.game.character.maxLife;
+        this.lifeText.text = `${currentLife}/${maxLife}HP`;
+
+        let xp = this.game.character.exp;
+        let xpL = this.game.character.expToLvl;
+        this.expText.text = `${xp}/${xpL}XP`;
+
+        let lvl = this.game.character.level;
+        this.lvlText.text = `Lvl.${lvl}`;
     }
 }

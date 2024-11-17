@@ -2,17 +2,18 @@ import { GameObject } from "./gameObject.js";
 import { fastDistanceCalc, squaredDistance, normalizeVector } from "./utility.js";
 
 export class Enemy extends GameObject {
-    constructor(game, spritesheetAsset, maxVelocity = 4, x = 800, y = 500, life = 10, expGiven = 5, damage = 5, animSize = null) {
+    constructor(game, spritesheetAsset, maxVelocity = 4, x = 800, y = 500, life = 10, expGiven = 5, damage = 5, animSize = null, vision = null) {
         super(game, maxVelocity, x, y, animSize);
         this.neighbors = [];
 
         this.expGiven = expGiven;
         this.damage = damage;
 
-        this.vision = 100 + Math.floor(Math.random() * 150);
+        this.vision = vision != null ? vision : 100 + Math.floor(Math.random() * 150);
         this.life = life;
         this.hitted = false;
         this.dead = false;
+        this.shooting = false;
 
         this.loadAnimationsFromSpritesheet(spritesheetAsset, () => {
             this.animation.animationSpeed = 0.3;
@@ -20,7 +21,7 @@ export class Enemy extends GameObject {
         });
         this.setCurrentAnimation("idle");
 
-        this.states = { IDLE: 0, CHASING: 1, ATTACKING: 2, GETTING_HIT: 3, DYING: 4 };
+        this.states = { IDLE: 0, CHASING: 1, ATTACKING: 2, GETTING_HIT: 3, DYING: 4, RANGE_ATTACKING: 5 };
         this.state = this.states.IDLE;
     }
 
@@ -67,10 +68,10 @@ export class Enemy extends GameObject {
             vecAlignment = await this.alignment(this.neighbors);
             vecCohesion = await this.cohesion(this.neighbors);
             
-            this.setCurrentAnimation("running");
+            this.setCurrentAnimation("idle");
         }
         
-        if (this.state == this.states.IDLE || this.state == this.states.CHASING) {
+        if (this.state == this.states.IDLE || this.state == this.states.CHASING || this.state == this.states.RANGE_ATTACKING) {
             vecSeparation = await this.separation(this.neighbors);
             
             vectorsSum.x += (vecSeparation || {}).x || 0;
@@ -92,6 +93,11 @@ export class Enemy extends GameObject {
           this.velocity.x = 0;
           this.velocity.y = 0;
           this.attack();
+        }
+
+        if (this.state == this.states.RANGE_ATTACKING) {
+            if (this.currentAnimation == this.animatedSprites["rangeAttack"]) return;
+            this.playRangeAttackAnim();
         }
 
         if(this.state == this.states.GETTING_HIT) {
@@ -118,9 +124,11 @@ export class Enemy extends GameObject {
             this.state = this.states.DYING;
         } else if(this.hitted) {
             this.state = this.states.GETTING_HIT;
-        }else if (this.touchingPlayer) {
+        }else if(this.touchingPlayer) {
             this.state = this.states.ATTACKING;
-        } else if (this.seeingPlayer) {
+        } else if(this.shooting) {
+            this.state = this.states.RANGE_ATTACKING;
+        } else if(this.seeingPlayer) {
             this.state = this.states.CHASING;
         } else {
             this.state = this.states.IDLE;
@@ -288,5 +296,23 @@ export class Enemy extends GameObject {
         this.currentAnimation.loop = false;
         this.currentAnimation.gotoAndPlay(0);
         this.currentAnimation.onComplete = () => { this.game.enemySpawner.enemies = this.game.enemySpawner.enemies.filter((k) => k != this); super.delete(); };
+    }
+
+    async rangeAttack() {
+
+    }
+
+    async playRangeAttackAnim() {
+        let animFn = (animation) => {
+            animation.animationSpeed = 0.3;
+            animation.anchor.set(0.4, 0.6);
+            if(this.animSize != null) {
+                animation.setSize(this.animSize);
+            }
+        }
+        await this.setCurrentAnimation("rangeAttack", animFn);
+        this.currentAnimation.loop = false;
+        this.currentAnimation.gotoAndPlay(0);
+        this.currentAnimation.onComplete = () => { this.shooting = false };
     }
 }

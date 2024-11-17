@@ -21,7 +21,7 @@
         margin:0;
       }
 
-      #playBtn {
+      #playBtn, #replayBtn {
         align-items: center;
         background-color: #fee6e3;
         border: 3px solid #111;
@@ -48,7 +48,7 @@
         background: linear-gradient(90deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
       }
 
-      #playBtn:after {
+      #playBtn:after, #replayBtn:after {
         background-color: #111;
         border-radius: 8px;
         content: "";
@@ -63,21 +63,21 @@
         z-index: -1;
       }
 
-      #playBtn:hover:after {
+      #playBtn:hover:after, #replayBtn:hover:after {
         transform: translate(0, 0);
       }
 
-      #playBtn:active {
+      #playBtn:active, #replayBtn:active {
         background-color: #ffdeda;
         outline: 0;
       }
 
-      #playBtn:hover {
+      #playBtn:hover, #replayBtn:hover {
         outline: 0;
       }
 
       @media (min-width: 768px) {
-        #playBtn {
+        #playBtn, #replayBtn {
           padding: 0 40px;
         }
       }
@@ -86,8 +86,9 @@
   </head>
   <body>
     <script src="./index.js" type="module"></script>
-    <div style="display: flex;justify-content: center;align-items: center;text-align: center;min-height: 170vh;">
+    <div id="mainScreen" style="display: flex;justify-content: center;align-items: center;text-align: center;min-height: 170vh;">
       <button id="playBtn">Play</button>
+      <button id="replayBtn" style="display: none;">Main Menu</button>
     </div>
   </body>
 </html>

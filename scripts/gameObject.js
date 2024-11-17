@@ -5,6 +5,7 @@ export class GameObject {
     constructor(game, maxVelocity = 10, x = 100, y = 100, animSize = null) {
         this.id = generateId();
         this.container = new PIXI.Container();
+        this.animContainer = new PIXI.Container();
         this.game = game;
         this.grid = game.grid;
         this.animatedSprites = {};
@@ -21,6 +22,7 @@ export class GameObject {
 
     async addSelfToCanvas() {
         this.game.app.stage.addChild(this.container);
+        this.container.addChild(this.animContainer);
     }
 
     async loadAnimationsFromSpritesheet(spritesheet) {
@@ -42,8 +44,8 @@ export class GameObject {
         this.currentAnimation = this.animatedSprites[newAnimationName];
         animSetUp(this.currentAnimation);
         this.currentAnimation.play()
-        this.container.removeChildren();
-        this.container.addChild(this.currentAnimation);
+        this.animContainer.removeChildren();
+        this.animContainer.addChild(this.currentAnimation);
     }
 
     async updateFacingDirection() {

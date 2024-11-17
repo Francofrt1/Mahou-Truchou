@@ -126,7 +126,7 @@ export class Game {
         this.backgroundsCicle["morning"] = new Background(this, await PIXI.Assets.loadBundle('morning-background-bundle'));
         this.backgroundsCicle["morning-2"] = new Background(this, await PIXI.Assets.loadBundle('morning-background-2-bundle'));
 
-        this.setCounter(66, () => { this.cicleThroughBgs() }, true);
+        this.setCounter(62, () => { this.cicleThroughBgs() }, true);
     }
 
     async cicleThroughBgs() {
@@ -156,6 +156,11 @@ export class Game {
         this.setCounter(30, () => {
             this.enemySpawner.spawnEnemies();
         }, true);
+
+        //500
+        this.setCounter(500, () => {
+            this.enemySpawner.spawnBoss();
+        });
     }
 
     async loadEffects() {
@@ -224,11 +229,36 @@ export class Game {
     async secondsSinceGameStarted() {
         return this.ellapsedFrames / 60;
     }
+
+    async winGame() {
+        this.app.stage.position.x = 0;
+        this.app.stage.position.y = 0;
+        this.character.delete();
+        this.ui.winMessage();
+        this.app.ticker.stop();
+    }
+
+    async playerDied() {
+        this.app.stage.position.x = 0;
+        this.app.stage.position.y = 0;
+        this.ui.deathMessage();
+
+        this.setCounter(10, () => {
+            this.app.ticker.stop();
+            document.getElementById("mainScreen").style.display = "flex";
+            document.getElementById("replayBtn").style.display = "flex";
+        });
+    }
 }
 
 let mainGame;
 document.getElementById("playBtn").onclick = (e) => {
     e.target.parentElement.style.display = "none";
+    e.target.style.display = "none";
 
     mainGame = new Game();
+}
+
+document.getElementById("replayBtn").onclick = (e) => {
+    location.reload();
 }

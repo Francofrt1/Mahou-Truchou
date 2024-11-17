@@ -1434,5 +1434,10 @@
 			,"AttackAnimation4.png","AttackAnimation5.png","AttackAnimation6.png","AttackAnimation7.png"
 			,"AttackAnimation8.png","AttackAnimation9.png","AttackAnimation10.png"
 		]
+		, "death": [
+			"deathAnimation1.png","deathAnimation2.png","deathAnimation3.png","deathAnimation4.png"
+			,"deathAnimation5.png","deathAnimation6.png","deathAnimation7.png","deathAnimation8.png"
+			,"deathAnimation9.png","deathAnimation10.png"
+		]
 	}
 }

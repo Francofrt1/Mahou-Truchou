@@ -26,10 +26,14 @@ export class Character extends GameObject {
         this.blackHoleRange = 350;
         this.blackHoleActiveTime = 5;
 
+        this.dead = false;
         this.loadAnimationsFromSpritesheet(spritesheetAsset, () => {
             this.animation.animationSpeed = 0.3;
             this.animation.anchor.set(0.4, 0.6);
         });
+        this.states = { IDLE: 0, CHASING: 1, ATTACKING: 2, GETTING_HIT: 3, DYING: 4, RANGE_ATTACKING: 5 };
+        this.state = this.states.IDLE;
+
         this.setCurrentAnimation("idle");
     }
 
@@ -128,6 +132,12 @@ export class Character extends GameObject {
         if(this.lockedSkills[key] || this.usedSkills[key]) {
             return;
         }
+        this.setCurrentAnimation("attack");
+        this.currentAnimation.loop = false;
+        this.currentAnimation.gotoAndPlay(0);
+        this.currentAnimation.onComplete = () => {
+            this.setCurrentAnimation("idle");
+        };
         const assets = await this.game.getProjectileAnims(this.skills[key]);
         this.usedSkills[key] = true;
 
@@ -253,12 +263,18 @@ export class Character extends GameObject {
     async getHit(damage) {
         if(this.shielded) return;
         this.life -= damage;
+
+        if(!this.dead) {
+            this.setCurrentAnimation("hit");
+        }
         if(this.life <= 0) {
             await this.die();
         }
     }
 
     async die() {
+        if(this.dead) return;
+        this.dead = true;
         await this.setCurrentAnimation("death");
         this.currentAnimation.loop = false;
         this.currentAnimation.gotoAndPlay(0);

@@ -48,7 +48,7 @@ export class UserInterface {
 
     async startIcons() {
         const pointer = new PIXI.Sprite(this.icons.pointer);
-        pointer.scale.set(0.5, 0.5);
+        pointer.scale.set(0.3, 0.3);
         pointer.anchor.set(0.5);
         this.pointerContainer.addChild(pointer);
 

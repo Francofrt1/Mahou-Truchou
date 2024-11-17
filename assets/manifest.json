@@ -5,7 +5,7 @@
          "assets": [
             {
                "alias": "character",
-               "src": "./assets/sprites/player-character/player-character.json"
+               "src": "./assets/sprites/player-character/blueWitch-spritesheet.json"
             }
          ]
       },

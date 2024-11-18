@@ -24,7 +24,7 @@ export class Game {
         this.projectiles = [];
         this.effectAssets = {};
         this.counters = [];
-        this.bossSpawnTime = 300;
+        this.bossSpawnTime = 301;
         this.spawnEnemyInterval = 30;
         this.currentSong;
         this.songs;

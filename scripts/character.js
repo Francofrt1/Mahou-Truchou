@@ -29,13 +29,14 @@ export class Character extends GameObject {
         this.dead = false;
         this.hitted = false;
         this.attacking = false;
+        this.usingSkill = false;
 
         this.loadAnimationsFromSpritesheet(spritesheetAsset, () => {
             this.animation.animationSpeed = 0.3;
             this.animation.anchor.set(0.4, 0.6);
         });
         this.setCurrentAnimation("idle");
-        this.states = { IDLE: 0, MOVING: 1, ATTACKING: 2, GETTING_HIT: 3, DYING: 4 };
+        this.states = { IDLE: 0, MOVING: 1, ATTACKING: 2, GETTING_HIT: 3, DYING: 4, SKILL: 5 };
         this.state = this.states.IDLE;
     }
 
@@ -65,7 +66,9 @@ export class Character extends GameObject {
             this.state = this.states.DYING;
         } else if(this.hitted) {
             this.state = this.states.GETTING_HIT;
-        }else if(this.attacking) {
+        } else if(this.usingSkill) {
+            this.state = this.states.SKILL;
+        } else if(this.attacking) {
             this.state = this.states.ATTACKING;
         } else if(Math.abs(this.velocity.y) > 0 || Math.abs(this.velocity.x) > 0) {
             this.state = this.states.MOVING;
@@ -84,6 +87,11 @@ export class Character extends GameObject {
         if (this.state == this.states.ATTACKING) {
             if (this.currentAnimation == this.animatedSprites["attack"]) return;
             this.playAttackAnimation();
+        }
+
+        if (this.state == this.states.SKILL) {
+            if (this.currentAnimation == this.animatedSprites["attack"]) return;
+            this.playSkillAnimation();
         }
 
         if(this.state == this.states.GETTING_HIT) {
@@ -160,15 +168,15 @@ export class Character extends GameObject {
     }
 
     async activateSkill(key) {
-        this.attacking = true;
         if(this.lockedSkills[key] || this.usedSkills[key]) {
             return;
         }
         const assets = await this.game.getProjectileAnims(this.skills[key]);
         this.usedSkills[key] = true;
-
+        
         this.game.setCounter(this.skillsCooldown[key], () => { this.usedSkills[key] = false; })
-
+        
+        this.usingSkill = true;
         switch (this.skills[key]) {
             case "screenBomb":
                 this.screenBomb(assets);
@@ -327,6 +335,15 @@ export class Character extends GameObject {
             this.container.y = 0;
             this.delete();
             this.game.playerDied();
+        };
+    }
+
+    async playSkillAnimation() {
+        await this.setCurrentAnimation("attack");
+        this.currentAnimation.loop = false;
+        this.currentAnimation.gotoAndPlay(0);
+        this.currentAnimation.onComplete = () => { 
+            this.usingSkill = false;
         };
     }
 }

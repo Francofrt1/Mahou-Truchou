@@ -17,6 +17,8 @@ export class UserInterface {
         this.icons;
         this.skillIcons = {};
         this.clock;
+        this.winContainer = new PIXI.Container();
+        this.deathContainer = new PIXI.Container();
         this.setUp();
     }
 
@@ -28,6 +30,8 @@ export class UserInterface {
         this.game.app.stage.addChild(this.container);
         this.game.app.stage.addChild(this.pointerContainer);
 
+        await this.startWinMessage();
+        await this.startDeathMessage();
         await this.startHUD(this.icons);
         this.ready = true;
     }
@@ -115,8 +119,7 @@ export class UserInterface {
         this.container.addChild(this.lvlText);
     }
 
-    async winMessage() {
-        this.container.removeChildren();
+    async startWinMessage() {
         let bitmapFontText = new PIXI.BitmapText({
             text: 'YOU WIN!',
             style: {
@@ -126,14 +129,15 @@ export class UserInterface {
             }
         });
 
-        bitmapFontText.x = window.innerWidth / 2;
-        bitmapFontText.y = window.innerHeight / 2;
+        bitmapFontText.x = window.innerWidth / 2 - 100;
+        bitmapFontText.y = window.innerHeight / 2 - 400;
 
-        this.container.addChild(bitmapFontText);
+        this.winContainer.addChild(bitmapFontText);
+        this.container.addChild(this.winContainer);
+        this.winContainer.visible = false;
     }
 
-    async deathMessage() {
-        this.container.removeChildren();
+    async startDeathMessage() {
         let bitmapFontText = new PIXI.BitmapText({
             text: 'You Failed...',
             style: {
@@ -146,7 +150,23 @@ export class UserInterface {
         bitmapFontText.x = window.innerWidth / 2 - 100;
         bitmapFontText.y = window.innerHeight / 2 - 400;
 
-        this.container.addChild(bitmapFontText);
+        this.deathContainer.addChild(bitmapFontText);
+        this.container.addChild(this.deathContainer);
+        this.deathContainer.visible = false;
+    }
+
+    async winMessage() {
+        this.container.children.forEach(child => {
+            child.visible = false;
+        })
+        this.winContainer.visible = true;
+    }
+
+    async deathMessage() {
+        this.container.children.forEach(child => {
+            child.visible = false;
+        })
+        this.deathContainer.visible = true;
     }
 
     async update() {

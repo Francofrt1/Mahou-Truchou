@@ -241,18 +241,16 @@ export class Game {
     }
 
     async winGame() {
-        this.app.stage.position.x = 0;
-        this.app.stage.position.y = 0;
-        this.character.delete();
-        this.ui.winMessage();
-        this.app.ticker.stop();
+        await this.ui.winMessage();
+        this.setCounter(10, () => {
+            this.app.ticker.stop();
+            document.getElementById("mainScreen").style.display = "flex";
+            document.getElementById("replayBtn").style.display = "flex";
+        });
     }
 
     async playerDied() {
-        this.app.stage.position.x = 0;
-        this.app.stage.position.y = 0;
         this.ui.deathMessage();
-
         this.setCounter(10, () => {
             this.app.ticker.stop();
             document.getElementById("mainScreen").style.display = "flex";

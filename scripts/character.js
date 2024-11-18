@@ -27,14 +27,16 @@ export class Character extends GameObject {
         this.blackHoleActiveTime = 5;
 
         this.dead = false;
+        this.hitted = false;
+        this.attacking = false;
+
         this.loadAnimationsFromSpritesheet(spritesheetAsset, () => {
             this.animation.animationSpeed = 0.3;
             this.animation.anchor.set(0.4, 0.6);
         });
-        this.states = { IDLE: 0, CHASING: 1, ATTACKING: 2, GETTING_HIT: 3, DYING: 4, RANGE_ATTACKING: 5 };
-        this.state = this.states.IDLE;
-
         this.setCurrentAnimation("idle");
+        this.states = { IDLE: 0, MOVING: 1, ATTACKING: 2, GETTING_HIT: 3, DYING: 4 };
+        this.state = this.states.IDLE;
     }
 
     async handleMovementInputs() {
@@ -51,14 +53,48 @@ export class Character extends GameObject {
 
     async update() {    
         await this.handleMovementInputs();
-    
-        if (Math.abs(this.velocity.y) > 0 || Math.abs(this.velocity.x) > 0) {
-          this.setCurrentAnimation("running");
-        } else if (this.currentAnimation == this.animatedSprites["running"]) {
-          this.setCurrentAnimation("idle");
-        }
+        await this.changeStateOnData();
+        await this.doActionsByState();
+
         this.checkLevelUp();
         super.update();
+    }
+
+    async changeStateOnData() {
+        if(this.dead) {
+            this.state = this.states.DYING;
+        } else if(this.hitted) {
+            this.state = this.states.GETTING_HIT;
+        }else if(this.attacking) {
+            this.state = this.states.ATTACKING;
+        } else if(Math.abs(this.velocity.y) > 0 || Math.abs(this.velocity.x) > 0) {
+            this.state = this.states.MOVING;
+        } else {
+            this.state = this.states.IDLE;
+        }
+    }
+
+    async doActionsByState() {
+        if (this.state == this.states.MOVING) {
+            this.setCurrentAnimation("running");
+        } else if (this.state == this.states.IDLE) {
+            this.setCurrentAnimation("idle");
+        }
+
+        if (this.state == this.states.ATTACKING) {
+            if (this.currentAnimation == this.animatedSprites["attack"]) return;
+            this.playAttackAnimation();
+        }
+
+        if(this.state == this.states.GETTING_HIT) {
+            if (this.currentAnimation == this.animatedSprites["hit"]) return;
+            await this.playHitAnimation();
+        }
+
+        if(this.state == this.states.DYING) {
+            if (this.currentAnimation == this.animatedSprites["death"]) return;
+            await this.playDeathAnimation();
+        }
     }
 
     async checkLevelUp() {
@@ -93,12 +129,7 @@ export class Character extends GameObject {
     }
 
     async attack() {
-        this.setCurrentAnimation("attack");
-        this.currentAnimation.loop = false;
-        this.currentAnimation.gotoAndPlay(0);
-        this.currentAnimation.onComplete = () => {
-            this.setCurrentAnimation("idle");
-        };
+        this.attacking = true;
     
         let angle = Math.atan2(
           this.game.mouse.x - this.game.app.stage.x - this.container.x,
@@ -129,15 +160,10 @@ export class Character extends GameObject {
     }
 
     async activateSkill(key) {
+        this.attacking = true;
         if(this.lockedSkills[key] || this.usedSkills[key]) {
             return;
         }
-        this.setCurrentAnimation("attack");
-        this.currentAnimation.loop = false;
-        this.currentAnimation.gotoAndPlay(0);
-        this.currentAnimation.onComplete = () => {
-            this.setCurrentAnimation("idle");
-        };
         const assets = await this.game.getProjectileAnims(this.skills[key]);
         this.usedSkills[key] = true;
 
@@ -262,11 +288,8 @@ export class Character extends GameObject {
 
     async getHit(damage) {
         if(this.shielded) return;
+        this.hitted = true;
         this.life -= damage;
-
-        if(!this.dead) {
-            this.setCurrentAnimation("hit");
-        }
         if(this.life <= 0) {
             await this.die();
         }
@@ -275,6 +298,27 @@ export class Character extends GameObject {
     async die() {
         if(this.dead) return;
         this.dead = true;
+    }
+
+    async playAttackAnimation() {
+        await this.setCurrentAnimation("attack");
+        this.currentAnimation.loop = false;
+        this.currentAnimation.gotoAndPlay(0);
+        this.currentAnimation.onComplete = () => {
+            this.attacking = false;
+        };
+    }
+
+    async playHitAnimation() {
+        await this.setCurrentAnimation("hit");
+        this.currentAnimation.loop = false;
+        this.currentAnimation.gotoAndPlay(0);
+        this.currentAnimation.onComplete = () => {
+            this.hitted = false;
+        };
+    }
+
+    async playDeathAnimation() {
         await this.setCurrentAnimation("death");
         this.currentAnimation.loop = false;
         this.currentAnimation.gotoAndPlay(0);
@@ -282,7 +326,7 @@ export class Character extends GameObject {
             this.container.x = 0;
             this.container.y = 0;
             this.delete();
-            this.game.playerDied(); 
+            this.game.playerDied();
         };
     }
 }

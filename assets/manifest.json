@@ -292,6 +292,47 @@
                "src": "./assets/background/Clouds/Clouds2/4.png"
             }
          ]
+      },
+      {
+         "name": "music-bundle",
+         "assets": [
+            {
+               "alias": "song_1",
+               "src": "./assets/music/16_bit_space.{ogg,mp3}"
+            },
+            {
+               "alias": "song_2",
+               "src": "./assets/music/Feel_the_Wave.{ogg,mp3}"
+            },
+            {
+               "alias": "song_3",
+               "src": "./assets/music/glitch.{ogg,mp3}"
+            },
+            {
+               "alias": "song_4",
+               "src": "./assets/music/HexaPuppies.{ogg,mp3}"
+            },
+            {
+               "alias": "song_5",
+               "src": "./assets/music/Meet_the_HexaPuppies.{ogg,mp3}"
+            },
+            {
+               "alias": "song_6",
+               "src": "./assets/music/New_Horizons.{ogg,mp3}"
+            },
+            {
+               "alias": "song_7",
+               "src": "./assets/music/VGMA_Challenge_06.{ogg,mp3}"
+            },
+            {
+               "alias": "song_8",
+               "src": "./assets/music/The_Great_Machine.{ogg,mp3}"
+            },
+            {
+               "alias": "song_9",
+               "src": "./assets/music/retro_metal.{ogg,mp3}"
+            }
+         ]
       }
    ]
 }

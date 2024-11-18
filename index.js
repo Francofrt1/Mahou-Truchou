@@ -26,6 +26,8 @@ export class Game {
         this.counters = [];
         this.bossSpawnTime = 300;
         this.spawnEnemyInterval = 30;
+        this.currentSong;
+        this.songs;
 
         this.app.init({ 
             width: this.canvasWidth
@@ -55,6 +57,7 @@ export class Game {
         await this.loadBackgroundsCicle();
         await this.initEnemies();
         await this.loadEffects();
+        await this.loadSongs();
     }
 
     async gameLoop(deltaTime) {
@@ -162,6 +165,7 @@ export class Game {
 
         this.setCounter(this.bossSpawnTime, () => {
             this.enemySpawner.spawnBoss();
+            this.playBossSong();
         });
 
         this.setCounter(1, () => {
@@ -254,6 +258,30 @@ export class Game {
             document.getElementById("mainScreen").style.display = "flex";
             document.getElementById("replayBtn").style.display = "flex";
         });
+    }
+
+    async loadSongs() {
+        const songAssets = await PIXI.Assets.loadBundle('music-bundle');
+        this.songs = Object.keys(songAssets).map((key) => [key, songAssets[key]]).filter(x => x[0].split('_')[0] == "song").map(x => x[1]);
+
+        this.songs[0].play();
+        this.currentSong = this.songs[0];
+        this.setCounter(35, () => 
+            {
+                if(this.enemySpawner.bossSpawned) return;
+                this.currentSong.stop();
+                let i = this.songs.findIndex(x => x == this.currentSong) + 1;
+                i = i <= 7 ? i : 0; 
+                this.currentSong = this.songs[i];
+                this.currentSong.play();
+            }
+        );
+    }
+
+    async playBossSong() {
+        this.currentSong.stop();
+        this.currentSong = this.songs[8];
+        this.currentSong.play();
     }
 }
 

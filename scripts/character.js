@@ -216,6 +216,7 @@ export class Character extends GameObject {
         }
 
         let actualExp = this.exp;
+        if (this.game.enemySpawner.bossSpawned) return;
         await this.game.enemySpawner.deleteAllEnemies();
         this.exp = actualExp;
     }

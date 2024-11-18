@@ -266,7 +266,8 @@ export class UserInterface {
     async updateClock() {
         let time = this.game.bossSpawnTime;
         let ellapsedTime = await this.game.secondsSinceGameStarted();
-
-        this.clock.text = `${await this.makeClockString(time - ellapsedTime)}`
+        let remainingTime = time - ellapsedTime;
+        if (remainingTime < 0) return;
+        this.clock.text = `${await this.makeClockString(remainingTime)}`;
     }
 }

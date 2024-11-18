@@ -274,7 +274,7 @@ export class Game {
                 i = i <= 7 ? i : 0; 
                 this.currentSong = this.songs[i];
                 this.currentSong.play();
-            }
+            }, true
         );
     }
 

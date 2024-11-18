@@ -8,7 +8,7 @@ export class Character extends GameObject {
 
         this.exp = 0;
         this.expToLvl = 100;
-        this.life = 1000;
+        this.life = 1500;
         this.shielded = false;
         this.baseAttack = 10;
         this.skills = {"1": "shield", "2": "shockWave", "3": "blackHole", "4": "screenBomb"};
@@ -16,7 +16,7 @@ export class Character extends GameObject {
         this.lockedSkills = {"1": true, "2": true, "3": true, "4": true};
         this.skillsCooldown = {"1": 7, "2": 10, "3": 15, "4": 60}; //seconds
         this.level = 1;
-        this.maxLife = 1000;
+        this.maxLife = 1500;
         this.colorByLevel = {1: "orange", 2: "blue", 3: "green", 4: "yellow", 5: "white"
             , 6: "violet", 7: "dark-yellow", 8: "red", 9: "dark-violet", 10: "dark-violet"
         };
@@ -90,7 +90,7 @@ export class Character extends GameObject {
         }
 
         if (this.state == this.states.SKILL) {
-            if (this.currentAnimation == this.animatedSprites["attack"]) return;
+            if (this.currentAnimation == this.animatedSprites["skill"]) return;
             this.playSkillAnimation();
         }
 
@@ -339,7 +339,7 @@ export class Character extends GameObject {
     }
 
     async playSkillAnimation() {
-        await this.setCurrentAnimation("attack");
+        await this.setCurrentAnimation("skill");
         this.currentAnimation.loop = false;
         this.currentAnimation.gotoAndPlay(0);
         this.currentAnimation.onComplete = () => { 

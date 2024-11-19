@@ -28,6 +28,7 @@ export class Game {
         this.spawnEnemyInterval = 30;
         this.currentSong;
         this.songs;
+        this.attackCounterIndex;
 
         this.app.init({ 
             width: this.canvasWidth
@@ -80,6 +81,11 @@ export class Game {
 
     async mouseDownEvent() {
         this.character.attack();
+        this.attackCounterIndex = await this.setCounter(0.5, () => { this.character.attack(); }, true);
+    }
+
+    async mouseUpEvent() {
+        this.counters[this.attackCounterIndex].executed = true;
     }
 
     async onMouseMove(event) {
@@ -108,6 +114,7 @@ export class Game {
         });
         this.app.view.addEventListener("mouseup", () => {
             (this.mouse || {}).click = false;
+            this.mouseUpEvent();
         });
 
         this.app.view.addEventListener("mousemove", this.onMouseMove.bind(this));
@@ -234,6 +241,8 @@ export class Game {
                     }
             }
         );
+
+        return this.counters.length - 1;
     }
 
     async secondsSinceGameStarted() {

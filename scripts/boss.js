@@ -3,9 +3,9 @@ import { normalizeVector } from "./utility.js";
 import { BossProjectile } from "./bossProjectile.js";
 
 export class Boss extends Enemy {
-    constructor(game, spritesheetAsset, maxVelocity = 3.5, x = 800, y = 500, life = 2000, expGiven = 100000, damage = 500) {
+    constructor(game, spritesheetAsset, maxVelocity = 3.5, x = 800, y = 500, life = 2000, expGiven = 100000, damage = 2000) {
         super(game, spritesheetAsset, maxVelocity, x, y, life, expGiven, damage, 500, 5000);
-        this.rangeDamage = 100;
+        this.rangeDamage = 500;
 
         this.initBoss();
     }
